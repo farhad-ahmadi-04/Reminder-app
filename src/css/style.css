@@ -31,8 +31,9 @@ header {
 
 /* style div samt chap header */
 .div-left-header {
-    background-color: #929191;
+    background-image: linear-gradient(#faf4f4, #7b7a7a42, #68686874);
     border-radius: 3vh;
+    min-width: 70%;
 }
 
 /* div samt chap header > (ul) */
@@ -51,10 +52,10 @@ header {
 
     border-radius: 1.5vh;
 
-    background-color: #929191;
+    background-image: linear-gradient(top #79797955, #797979);
     color: white;
 
-    box-shadow: 0vh 0.2vh 0.3vh 0 #afafaf;
+    box-shadow: 0vh 0.4vh 0.1vh 0.15vh #afafaf;
 }
 
 /* div samt rast header */
@@ -263,6 +264,15 @@ main {
     right: 10px;
 }
 
+/*................... Folder style section .......................*/
+
+.folderSection {
+    width: 80%;
+    margin: 0 auto;
+    background-color: red;
+    display: none;
+}
+
 /*........................ footer style .......................... */
 
 /* footer style */
@@ -306,6 +316,5 @@ footer input {
     border-radius: 0.5vh;
     font-size: 1.5vh;
     background-color: #E8E8E8;
-    outline: none;
     border: none;
 }
