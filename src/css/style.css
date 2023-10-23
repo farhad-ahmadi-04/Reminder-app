@@ -1,10 +1,9 @@
 /* margin pish farz body ro hazt beshavad */
 body {
     margin: 0;
-    margin-top: 11vh;
     background-color: #D8E3C9;
     font-size: 5vw;
-    font-size: calc(12px + 2vh)
+    font-size: calc(20px + 1vh);
 }
 
 /* hame li ha list-style ha shon none beshavad */
@@ -40,6 +39,7 @@ header {
 .div-left-header ul {
     display: flex;
     padding: 0 0.5vh;
+    margin: 1vh;
 }
 
 /* div samt chap header > (ul > li) */
@@ -67,8 +67,6 @@ header {
 .div-right-header>ul>li>img {
     width: 5vh;
 }
-
-
 
 /* menu */
 #menu {
@@ -113,6 +111,12 @@ header {
 #menu>div:first-of-type {
     margin: 3px 4px 5px 0px;
     justify-content: flex-end;
+}
+
+/* .....................style main................ */
+
+main {
+    margin-top: calc(13vh + 40px);
 }
 
 .mood {
@@ -264,7 +268,7 @@ header {
 /* footer style */
 footer {
     position: fixed;
-    top: 80vh;
+    bottom: 1vh;
     right: 0;
     left: 0;
     width: 80%;
