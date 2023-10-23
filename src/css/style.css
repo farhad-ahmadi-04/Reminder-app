@@ -15,15 +15,20 @@ ul {
     padding: 0;
 }
 
-/* style header main */
+/*.............................. style header main ..............................*/
 header {
     width: 100%;
     position: fixed;
-    top: 2vh;
+    top: 0;
 
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
+    background-color: #D8E3C9;
+    box-shadow: 0 1vh 2vh 2vh #d8e3c9;
+
+    padding: 2vh 0 0 0;
 }
 
 /* style div samt chap header */
@@ -61,4 +66,58 @@ header {
 /* div samt rast header > (img)*/
 .div-right-header img {
     width: 5vh;
+}
+
+
+/*........................ footer style .......................... */
+
+/* footer style */
+footer {
+    position: fixed;
+    top: 80vh;
+    right: 0;
+    left: 0;
+
+    width: 80%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 0 auto;
+}
+
+/* The first footer divs */
+footer>div {
+    margin: 1vh auto;
+    text-align: right;
+
+    width: 100%;
+}
+
+/* The number of two div in the footer (bottom div) */
+.div-bottom-footer {
+    background-color: #777777;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 1vh;
+}
+
+/* Internal elements (the number of two divs in the footer (bottom div)) */
+.div-bottom-footer * {
+    margin: 1vh;
+}
+
+/* input div number two footer (bottom div) */
+footer input {
+    width: 80%;
+    height: 2.5vh;
+    border-radius: 0.5vh;
+    font-size: 1.5vh;
+    background-color: #E8E8E8;
+    outline: none;
+    border: none;
 }
