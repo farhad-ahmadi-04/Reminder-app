@@ -3,6 +3,7 @@ body {
     margin: 0;
     margin-top: 11vh;
     background-color: #D8E3C9;
+    font-size: calc(15px + 0.390625vw)
 }
 
 /* hame li ha list-style ha shon none beshavad */
@@ -20,11 +21,9 @@ header {
     width: 100%;
     position: fixed;
     top: 0;
-
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-
     background-color: #D8E3C9;
     box-shadow: 0 1vh 2vh 2vh #d8e3c9;
 
@@ -61,13 +60,98 @@ header {
 /* div samt rast header */
 .div-right-header {
     margin-right: 0.2vh;
+    position: relative;
 }
 
 /* div samt rast header > (img)*/
-.div-right-header img {
+.div-right-header>ul>li>img {
     width: 5vh;
 }
 
+
+
+/* menu */
+#menu {
+    visibility: hidden;
+    opacity: 0;
+    background: rgba(54, 54, 54, 0.87);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transition: opacity, visibility, width, height 0.4s ease;
+    width: 0;
+    height: 0;
+}
+
+.div-right-header>ul>li:hover #menu {
+    visibility: visible;
+    opacity: 1;
+    width: 20vw;
+    height: 200px;
+}
+
+#menu>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Inder';
+    font-style: normal;
+    font-weight: 400;
+    /* font-size: 9px; */
+    line-height: 11px;
+    letter-spacing: 0.07em;
+    color: #EDEDED;
+    padding-bottom: 5%;
+    width: 100%;
+}
+
+#menu>div:first-of-type {
+    margin: 3px 4px 5px 0px;
+    justify-content: flex-end;
+}
+
+.mood {
+    position: relative;
+    width: calc(100% - 70%);
+    padding: 5px 0px 5px 0px;
+    background: #EDEDED;
+    border: 1px solid #5F5B5B;
+    border-radius: 13px;
+}
+
+.mood>span {
+    width: 25px;
+    height: 14px;
+
+}
+
+.mood>.sunMoon {
+    box-sizing: border-box;
+    position: relative;
+    width: calc(100% - 70%);
+    height: 17px;
+    background: #FCF296;
+    box-shadow: 8px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50px;
+}
+
+.mood>.sunMoon>svg:first-of-type {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+.mood>.sunMoon>svg:last-of-type {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    visibility: hidden;
+    opacity: 0;
+}
 
 /*........................ footer style .......................... */
 
