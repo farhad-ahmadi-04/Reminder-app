@@ -9,14 +9,21 @@ let allSection = document.querySelector('#allSection')
 let alarmsSecion = document.querySelector('#alarmsSecion')
 // Select element main
 let main = document.querySelector('main section')
+
 let dateButton = document.querySelector(".time>div>button"); //date btn in landing page
 const dateButtonSvg = document.querySelector(".time>div>button>svg"); //svg in date btn in landing page
 const date = document.querySelector(".date") // date section
 const save = document.querySelector(".footerNewToDo>div:last-of-type");
 const cancel = document.querySelector(".footerNewToDo>div:first-of-type");
-const adding = document.querySelector(".adding")
+const adding = document.querySelector("#svgAddNote")
 const newToDo = document.querySelector(".newToDo")
 
+// Modal to create a new folder
+let containerAddNewFolder = document.querySelector("#containerAddNewFolder")
+// button to delete the modal to create a new folder
+let closeModalAddNewFolder = document.querySelector("#closeModalAddNewFolder")
+// Select Add New Folder
+let iconAddNewFolder = document.querySelector("#iconAddNewFolder")
 
 // --event--
 // if the click ul in nav header
@@ -25,13 +32,19 @@ dateButton.addEventListener("touchend", setDate) // when touched on btn in date 
 save.addEventListener("touchend", saveNote)
 // cancel.addEventListener("click", cancelNote)
 adding.addEventListener("touchend", addTemplate) //show template for adding
-
-
+// when touched on btn in date section in landing page
+dateButton.addEventListener("touchend", setDate)
+// By clicking on the Add New Folder icon, display the folder creation modal
+iconAddNewFolder.addEventListener('click', ShowModalAddNewFolder)
+// Hide the modal by clicking the delete icon on the modal
+closeModalAddNewFolder.addEventListener('click', closeModalNewFolder)
 // -- function---
+
 // Switch main sections by clicking on the header navigation
 function TabSwitchInMain(e) {
     // Get the value of the clicked element
     let info = e.target.value
+
 
     switch (info) {
         case 1:
@@ -39,12 +52,20 @@ function TabSwitchInMain(e) {
             removeSection()
             // The display section is all flexed
             allSection.style.display = 'flex'
+            // Change the add icon in the footer
+            ChangeTheNewAddIcon(1)
+            // Removing the New Folder modal opened when switching pages
+            closeModalNewFolder()
             break;
         case 2:
             // Delete all main sections
             removeSection()
             // The display section is folders flexed
             folderSection.style.display = 'flex'
+            // Change the add icon in the footer
+            ChangeTheNewAddIcon(2)
+            // Removing the New Note modal opened when switching pages
+            closeModalNewNote()
             break;
         case 3:
             // Delete all main sections
@@ -59,18 +80,49 @@ function TabSwitchInMain(e) {
     }
 }
 
-
 // Delete all main sections
 function removeSection() {
     for (let i = 0; i < 4; i++) {
-        let y = document.querySelectorAll('main section')[i]
-        y.style.display = 'none'
+        // get all section in main
+        let x = document.querySelectorAll('main section')[i]
+        x.style.display = 'none'
     }
 }
 
 // show tremplate for add notre
 function addTemplate() {
     newToDo.style.display = 'flex'
+}
+// Change the add icon in the footer
+function ChangeTheNewAddIcon(key) {
+    // Hide all footer icons
+    svgAddNote.style.display = 'none'
+    iconAddNewFolder.style.display = 'none'
+
+    // Display the icon relative to the page in the footer
+    switch (key) {
+        case 1:
+            svgAddNote.style.display = 'inline-block'
+            break;
+        case 2:
+            iconAddNewFolder.style.display = 'inline-block'
+            break;
+    }
+}
+
+// By clicking on the Add New Folder icon, display the folder creation modal
+function ShowModalAddNewFolder() {
+    containerAddNewFolder.style.display = 'flex'
+}
+// Hide the modal by clicking the delete icon on the modal
+function closeModalNewFolder() {
+    containerAddNewFolder.style.display = 'none'
+    // Remove the input value of the title of the new folder modal
+    document.querySelector('#containerAddNewFolder input').value = ''
+}
+// Removing the New Note modal opened when switching pages
+function closeModalNewNote() {
+    newToDo.style.display = 'none'
 }
 
 // status of date div 

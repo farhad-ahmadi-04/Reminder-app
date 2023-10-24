@@ -324,11 +324,79 @@ main {
 /*................... Folder style section .......................*/
 
 .folderSection {
-    width: 80%;
+    width: 90%;
+    height: 30vh;
+
     margin: 0 auto;
-    background-color: red;
+
+
     display: none;
+
 }
+
+#containerAddNewFolder {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 80%;
+    background-color: #A4B4BA;
+    border-radius: 2vh;
+}
+
+#containerAddNewFolder h1 {
+    color: white;
+}
+
+#containerAddNewFolder label {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+#containerAddNewFolder label span {
+    margin-left: 0.5vh;
+    color: #414141;
+}
+
+#containerAddNewFolder label input {
+    width: 100%;
+    height: 3vh;
+    border: none;
+    border-radius: 0.5vh;
+}
+
+#containerAddNewFolder>div {
+    width: 80%;
+    margin: 5vh 0 3vh 0;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+#containerAddNewFolder>div>div {
+    display: flex;
+    background-color: white;
+    width: 30%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.3vh;
+}
+
+#containerAddNewFolder>div>div:nth-of-type(1) span {
+    color: #E36161;
+}
+
+#containerAddNewFolder>div>div:nth-of-type(2) span {
+    color: #53DE71;
+}
+
+
+#containerAddNewFolder>div img {
+    width: 1.5vh;
+}
+
 
 /*........................ footer style .......................... */
 
@@ -374,4 +442,17 @@ footer input {
     font-size: 1.5vh;
     background-color: #E8E8E8;
     border: none;
+}
+
+#iconAddNewFolder {
+    border: 0.8vh solid #777;
+    display: none;
+    border-radius: 50vh;
+    width: 7vh;
+    width: 5vh;
+    padding: 1vh;
+}
+
+#svgAddNote {
+    width: 9.5vh;
 }
