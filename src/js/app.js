@@ -12,11 +12,20 @@ let main = document.querySelector('main section')
 let dateButton = document.querySelector(".time>div>button"); //date btn in landing page
 const dateButtonSvg = document.querySelector(".time>div>button>svg"); //svg in date btn in landing page
 const date = document.querySelector(".date") // date section
+const save = document.querySelector(".footerNewToDo>div:last-of-type");
+const cancel = document.querySelector(".footerNewToDo>div:first-of-type");
+const adding = document.querySelector(".adding")
+const newToDo = document.querySelector(".newToDo")
+
 
 // --event--
 // if the click ul in nav header
 navHeader.addEventListener('click', TabSwitchInMain)
 dateButton.addEventListener("touchend", setDate) // when touched on btn in date section in landing page
+save.addEventListener("touchend", saveNote)
+// cancel.addEventListener("click", cancelNote)
+adding.addEventListener("touchend", addTemplate) //show template for adding
+
 
 // -- function---
 // Switch main sections by clicking on the header navigation
@@ -59,6 +68,11 @@ function removeSection() {
     }
 }
 
+// show tremplate for add notre
+function addTemplate() {
+    newToDo.style.display = 'flex'
+}
+
 // status of date div 
 let isDivVisible = false;
 // date div for choosing date
@@ -91,4 +105,29 @@ function svgPosition(num) {
     // change svg position to right or left
     let newLeft = svgPosition + num;
     dateButtonSvg.style.left = newLeft + 'px';
+}
+
+// save note to DOM
+function saveNote() {
+    const title = document.querySelector(".newToDo>div:nth-of-type(2)>input[type=text]").value;
+    const des = document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value;
+    let noteId = (Math.random() * 1000000).toFixed()
+
+    if (validate(title, des)) {
+        let saving = new Note(title, des, noteId);
+        saving.addNewNote()
+        newToDo.style.display = 'none';
+    } else {
+        alert("RIP...")
+    }
+}
+
+function validate(tit, des) {
+    let status = false;
+    if (tit == "" && des == "") {
+        status = false;
+    } else {
+        status = true;
+    }
+    return status
 }

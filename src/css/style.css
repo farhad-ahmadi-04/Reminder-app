@@ -161,7 +161,7 @@ main {
 
 /* new to do style */
 .newToDo {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     width: calc(100% - 100px);
