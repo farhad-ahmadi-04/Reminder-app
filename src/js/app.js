@@ -30,7 +30,7 @@ let iconAddNewFolder = document.querySelector("#iconAddNewFolder")
 navHeader.addEventListener('click', TabSwitchInMain)
 dateButton.addEventListener("touchend", setDate) // when touched on btn in date section in landing page
 save.addEventListener("touchend", saveNote)
-// cancel.addEventListener("click", cancelNote)
+cancel.addEventListener("click", cancelNote)
 adding.addEventListener("touchend", addTemplate) //show template for adding
 // when touched on btn in date section in landing page
 dateButton.addEventListener("touchend", setDate)
@@ -38,7 +38,15 @@ dateButton.addEventListener("touchend", setDate)
 iconAddNewFolder.addEventListener('click', ShowModalAddNewFolder)
 // Hide the modal by clicking the delete icon on the modal
 closeModalAddNewFolder.addEventListener('click', closeModalNewFolder)
+document.addEventListener("DOMContentLoaded", loadPage)
+
+
 // -- function---
+function loadPage() {
+    let notePage = new Note()
+    notePage.laodNotesInPage()
+}
+
 
 // Switch main sections by clicking on the header navigation
 function TabSwitchInMain(e) {
@@ -161,7 +169,7 @@ function svgPosition(num) {
 
 // save note to DOM
 function saveNote() {
-    const title = document.querySelector(".newToDo>div:nth-of-type(2)>input[type=text]").value;
+    const title = document.querySelector(".newToDo>div:nth-of-type(2)>input").value;
     const des = document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value;
     let noteId = (Math.random() * 1000000).toFixed()
 
@@ -169,9 +177,17 @@ function saveNote() {
         let saving = new Note(title, des, noteId);
         saving.addNewNote()
         newToDo.style.display = 'none';
+        document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
+        document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value = "";
     } else {
         alert("RIP...")
     }
+}
+// ifuser cancel the save note 
+function cancelNote() {
+    newToDo.style.display = 'none';
+    document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
+    document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value = "";
 }
 
 function validate(tit, des) {
