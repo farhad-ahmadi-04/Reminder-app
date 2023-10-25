@@ -27,8 +27,11 @@ let containerAddNewFolder = document.querySelector("#containerAddNewFolder")
 let closeModalAddNewFolder = document.querySelector("#closeModalAddNewFolder")
 // Select Add New Folder
 let iconAddNewFolder = document.querySelector("#iconAddNewFolder")
+
 const prev = document.querySelector(".prev") // prev icon in calendar
 const next = document.querySelector(".next") // next icon in calendar
+// select btn save in modal new folder
+let saveNewFolder = document.querySelector("#saveNewFolder")
 
 
 
@@ -49,13 +52,22 @@ document.addEventListener("DOMContentLoaded", loadPage)
 calendarModalSvg.addEventListener("touchend", showCalender)
 prev.addEventListener("touchend", prevMonth)
 next.addEventListener("touchend", nextMonth)
-
+// create new folder and show in dom
+saveNewFolder.addEventListener('click', createNewFolder)
+// load all notes
+document.addEventListener('DOMContentLoaded', new SetNewFolderInLS().loadNotesInPage())
 
 
 // -- function---
 function loadPage() {
     let notePage = new Note()
     notePage.laodNotesInPage()
+}
+
+// create new folder and show in dom
+function createNewFolder() {
+    // Calling the create new folder method in the new folder class
+    new NewFolder().createNewFolder()
 }
 
 
