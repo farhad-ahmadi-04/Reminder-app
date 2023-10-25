@@ -226,6 +226,75 @@ class NewFolder {
     }
 }
 
+
+class Calendar {
+    // constructor
+    constructor() {
+        this.date = new Date(); //new date
+        this.lastDay = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDate(); //last date of current month
+        this.prevLastDay = new Date(this.date.getFullYear(), this.date.getMonth(), 0).getDate(); //last date of prevent month
+        this.firstDayIndex = this.date.getDay(); //current day
+        this.lastDayIndex = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDay(); // last day of current month
+        this.nextDays = 7 - this.lastDayIndex + 1 //number of days for next month
+        // month
+        this.month = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ];
+    }
+    // methods
+    // show month and date
+    monthTitle() {
+        const mothHeader = document.querySelector(".calendarHeader>div h3")
+        // get month will return the number => search for number in month array
+        mothHeader.innerHTML = this.month[this.date.getMonth()]
+        // set value for month
+        mothHeader.setAttribute("value", this.date.getMonth())
+        // set date
+        document.querySelector(".calendarHeader>div p").innerHTML = this.date.toDateString()
+    }
+    // show date + prevent and next date
+    monthDays() {
+        const monthDays = document.querySelector(".days");
+        let day = ""
+        // for show prevent date
+        for (let j = this.firstDayIndex; j > 0; j--) {
+            day = `<div class="prev-date">${this.prevLastDay - j}</div>`
+        }
+        // fro show current + dates of the month
+        for (let i = 1; i < this.lastDay; i++) {
+            if (i === new Date().getDate() && this.date.getMonth() === new Date().getMonth()) {
+                console.log("today");
+                day += `<div class="today">${i}</div>`
+            } else {
+                console.log("sd");
+                day += `<div>${i}</div>`
+            }
+        }
+        // for show date in next month
+        for (let i = 1; i < this.nextDays; i++) {
+            day += `<div class="next-date">${i}</div>`
+            monthDays.innerHTML = day
+        }
+    }
+    // show next month
+    nextMonth() {
+        this.date.setMonth(this.date.getMonth() + 1)
+    }
+    // show previous month
+    prevMonth() {
+        this.date.setMonth(this.date.getMonth() - 1)
+
 // Folder set in local storage
 class SetNewFolderInLS {
     constructor(NameNewFolder, idRandom) {
