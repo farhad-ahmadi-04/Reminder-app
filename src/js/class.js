@@ -294,7 +294,8 @@ class Calendar {
     // show previous month
     prevMonth() {
         this.date.setMonth(this.date.getMonth() - 1)
-
+    }
+}
 // Folder set in local storage
 class SetNewFolderInLS {
     constructor(NameNewFolder, idRandom) {
@@ -308,7 +309,10 @@ class SetNewFolderInLS {
         let LSFolder = this.loadOfLS()
 
         // 2. Add new Folder
-        LSFolder.push({ folderText: this.NameNewFolder, folderID: this.idRandom })
+        LSFolder.push({
+            folderText: this.NameNewFolder,
+            folderID: this.idRandom
+        })
         // 3. Save FOLDER in LS
         this.saveNotesInLS(LSFolder)
     }
