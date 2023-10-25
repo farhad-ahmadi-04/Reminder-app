@@ -1,5 +1,14 @@
 // variables
 const mainUl = document.querySelector("#allSection>.notes>ul")
+// select btn save in modal new folder
+let saveNewFolder = document.querySelector("#saveNewFolder")
+// select section all folders
+let containerAllFolders = document.querySelector("#containerAllFolders")
+
+// Events
+
+// create new folder and show in dom
+saveNewFolder.addEventListener('click', createNewFolder)
 
 // classes
 //      class noteLS for save + remove notes in LS
@@ -137,5 +146,82 @@ class Note {
         // remove from LS
         let noteRId = event.target.parentElement.getAttribute('data-id')
         this.noteLs.removeFromLS(noteRId)
+    }
+}
+
+// create new folder and show in dom
+function createNewFolder() {
+    // Calling the create new folder method in the new folder class
+    new NewFolder().createNewFolder()
+}
+
+// add new folder in dom
+class NewFolder {
+    // The controller method of the methods
+    createNewFolder() {
+        // If there was no problem with validation
+        if (this.cheackValidationNewFolder().info) {
+            // Creating a folder and displaying it in Dom
+            // Set 1 (new folder name)
+            // Set 2 (Random ID)
+            this.addNewFolderInDom(this.cheackValidationNewFolder().NameNewFolder.value, this.idRandom())
+            // By clicking on the save button, the input value of the new folder model will be null
+            this.cheackValidationNewFolder().NameNewFolder.value = null
+            // By clicking on the save button, the new folder medal will be hidden
+            containerAddNewFolder.style.display = 'none'
+        } else {
+            // Error calling function
+            // set Input error text
+            this.error('the name min 1 character and max 10 character')
+        }
+    }
+    // New folder modal validation check
+    cheackValidationNewFolder() {
+        let info = false
+        let NameNewFolder = document.querySelector('#NameNewFolder')
+        if (NameNewFolder.value == '') {
+            info = false
+        } else if (NameNewFolder.value.length > 10) {
+            info = false
+        } else {
+            info = true
+        }
+        return {
+            NameNewFolder: NameNewFolder,
+            info: info
+        }
+    }
+
+    // Create a random ID for each folder
+    idRandom() {
+        return (Math.random() * 10000000).toFixed()
+    }
+
+    // Create and display folders in Dom
+    addNewFolderInDom(info, IdRandom) {
+        let NewFolderTemplate = `
+        <div data-id="${IdRandom}">
+            <div>
+                <span>${info}</span>
+            </div>
+            <div>
+                <span>0,File</span>
+                <img src="images/icons/folder.svg" alt="">
+                <img src="images/icons/setting.svg" alt="">
+            </div>
+        </div>
+        `
+
+        containerAllFolders.insertAdjacentHTML('afterbegin', NewFolderTemplate)
+    }
+
+    // Display the New Folder modal input error
+    error(info) {
+        let newError = `<p class="errorModalNewFolder">${info}</p>`
+        this.cheackValidationNewFolder().NameNewFolder.insertAdjacentHTML('afterend', newError)
+        setTimeout(() => {
+            document.querySelector('.errorModalNewFolder').remove()
+        }, 3000);
+
     }
 }

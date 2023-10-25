@@ -53,9 +53,9 @@ header {
     border-radius: 1.5vh;
 
     background-image: linear-gradient(top #79797955, #797979);
-    color: white;
+    color: #464646;
 
-    box-shadow: 0vh 0.4vh 0.1vh 0.15vh #afafaf;
+    box-shadow: 0vh 0.4vh 0.3vh 0.2vh #afafaf;
 }
 
 /* div samt rast header */
@@ -343,13 +343,19 @@ main {
     align-items: center;
     flex-direction: column;
     margin: 0 auto;
-    width: 80%;
-    background-color: #A4B4BA;
+    width: 90%;
+    height: 37vh;
+    background-color: rgb(165, 181, 187, 90%);
     border-radius: 2vh;
+    position: fixed;
+    top: 25vh;
 }
 
 #containerAddNewFolder h1 {
     color: white;
+    font-size: 4vh;
+    margin-bottom: 0;
+    font-weight: bold;
 }
 
 #containerAddNewFolder label {
@@ -361,6 +367,8 @@ main {
 #containerAddNewFolder label span {
     margin-left: 0.5vh;
     color: #414141;
+    font-size: 3vh;
+    font-weight: bold;
 }
 
 #containerAddNewFolder label input {
@@ -368,6 +376,7 @@ main {
     height: 3vh;
     border: none;
     border-radius: 0.5vh;
+    font-size: 2vh;
 }
 
 #containerAddNewFolder>div {
@@ -385,6 +394,8 @@ main {
     align-items: center;
     justify-content: space-between;
     padding: 0.3vh;
+    border-radius: 0.7vh;
+    border: 0.3vh solid #949494;
 }
 
 #containerAddNewFolder>div>div:nth-of-type(1) span {
@@ -400,6 +411,40 @@ main {
     width: 1.5vh;
 }
 
+#containerAllFolders {
+    width: 100%;
+}
+
+#containerAllFolders>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background-image: linear-gradient(#faf4f4, #7b7a7a42, #68686874);
+    box-shadow: 0vh 0.4vh 1vh 0.2vh #afafaf;
+
+    border-radius: 1vh;
+
+    padding: 2vh;
+    margin-bottom: 2vh;
+}
+
+#containerAllFolders>div>div:nth-of-type(2) {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#containerAllFolders>div>div:nth-of-type(2) img {
+    width: 3vh;
+}
+
+.errorModalNewFolder {
+    color: red;
+    font-weight: bold;
+    font-size: 1.6vh;
+}
 
 /*........................ footer style .......................... */
 

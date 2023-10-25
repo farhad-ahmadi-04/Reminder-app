@@ -25,6 +25,7 @@ let closeModalAddNewFolder = document.querySelector("#closeModalAddNewFolder")
 // Select Add New Folder
 let iconAddNewFolder = document.querySelector("#iconAddNewFolder")
 
+
 // --event--
 // if the click ul in nav header
 navHeader.addEventListener('click', TabSwitchInMain)
@@ -39,6 +40,7 @@ iconAddNewFolder.addEventListener('click', ShowModalAddNewFolder)
 // Hide the modal by clicking the delete icon on the modal
 closeModalAddNewFolder.addEventListener('click', closeModalNewFolder)
 document.addEventListener("DOMContentLoaded", loadPage)
+
 
 
 // -- function---
@@ -132,6 +134,7 @@ function closeModalNewFolder() {
 function closeModalNewNote() {
     newToDo.style.display = 'none'
 }
+
 
 // status of date div 
 let isDivVisible = false;
