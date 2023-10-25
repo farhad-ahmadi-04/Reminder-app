@@ -1,4 +1,5 @@
 // ---varibles--
+let cal = new Calendar() // calendar
 // Select ul in the nav header
 let navHeader = document.querySelector('.div-left-header ul')
 // Select the folders section
@@ -17,6 +18,8 @@ const save = document.querySelector(".footerNewToDo>div:last-of-type");
 const cancel = document.querySelector(".footerNewToDo>div:first-of-type");
 const adding = document.querySelector("#svgAddNote")
 const newToDo = document.querySelector(".newToDo")
+const calendarModalSvg = document.querySelector(".calendar>svg")
+const calendarModal = document.querySelector(".calendarModal")
 
 // Modal to create a new folder
 let containerAddNewFolder = document.querySelector("#containerAddNewFolder")
@@ -24,6 +27,9 @@ let containerAddNewFolder = document.querySelector("#containerAddNewFolder")
 let closeModalAddNewFolder = document.querySelector("#closeModalAddNewFolder")
 // Select Add New Folder
 let iconAddNewFolder = document.querySelector("#iconAddNewFolder")
+const prev = document.querySelector(".prev") // prev icon in calendar
+const next = document.querySelector(".next") // next icon in calendar
+
 
 
 // --event--
@@ -40,6 +46,9 @@ iconAddNewFolder.addEventListener('click', ShowModalAddNewFolder)
 // Hide the modal by clicking the delete icon on the modal
 closeModalAddNewFolder.addEventListener('click', closeModalNewFolder)
 document.addEventListener("DOMContentLoaded", loadPage)
+calendarModalSvg.addEventListener("touchend", showCalender)
+prev.addEventListener("touchend", prevMonth)
+next.addEventListener("touchend", nextMonth)
 
 
 
@@ -195,7 +204,7 @@ function cancelNote() {
     document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
     document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value = "";
 }
-
+// validation for add note
 function validate(tit, des) {
     let status = false;
     if (tit == "" && des == "") {
@@ -204,4 +213,22 @@ function validate(tit, des) {
         status = true;
     }
     return status
+}
+// for show next month in calendar
+function nextMonth() {
+    cal.nextMonth()
+    cal.monthTitle()
+    cal.monthDays()
+}
+// for show previuse month in calendar
+function prevMonth() {
+    cal.prevMonth()
+    cal.monthTitle()
+    cal.monthDays()
+}
+// shoeing calendar
+function showCalender() {
+    calendarModal.style.display = "flex";
+    cal.monthTitle()
+    cal.monthDays()
 }
