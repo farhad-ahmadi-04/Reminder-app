@@ -1,14 +1,9 @@
 // variables
 const mainUl = document.querySelector("#allSection>.notes>ul")
-// select btn save in modal new folder
-let saveNewFolder = document.querySelector("#saveNewFolder")
 // select section all folders
 let containerAllFolders = document.querySelector("#containerAllFolders")
 
-// Events
 
-// create new folder and show in dom
-saveNewFolder.addEventListener('click', createNewFolder)
 
 // classes
 //      class noteLS for save + remove notes in LS
@@ -149,11 +144,6 @@ class Note {
     }
 }
 
-// create new folder and show in dom
-function createNewFolder() {
-    // Calling the create new folder method in the new folder class
-    new NewFolder().createNewFolder()
-}
 
 // add new folder in dom
 class NewFolder {
@@ -161,10 +151,15 @@ class NewFolder {
     createNewFolder() {
         // If there was no problem with validation
         if (this.cheackValidationNewFolder().info) {
+            const Idrandom = this.idRandom()
             // Creating a folder and displaying it in Dom
             // Set 1 (new folder name)
             // Set 2 (Random ID)
-            this.addNewFolderInDom(this.cheackValidationNewFolder().NameNewFolder.value, this.idRandom())
+            this.addNoteInList(this.cheackValidationNewFolder().NameNewFolder.value, Idrandom)
+            // Set 1 to class (SetNewFolderInLS) "new folder name"
+            // Set 2 to class (SetNewFolderInLS) "Random ID"
+            // Calling the addNoteinLS method in the class (SetNewFolderInLS)
+            new SetNewFolderInLS(this.cheackValidationNewFolder().NameNewFolder.value, Idrandom).addNoteinLS()
             // By clicking on the save button, the input value of the new folder model will be null
             this.cheackValidationNewFolder().NameNewFolder.value = null
             // By clicking on the save button, the new folder medal will be hidden
@@ -172,7 +167,7 @@ class NewFolder {
         } else {
             // Error calling function
             // set Input error text
-            this.error('the name min 1 character and max 10 character')
+            this.error('the name min 1 character and max 25 character')
         }
     }
     // New folder modal validation check
@@ -181,7 +176,7 @@ class NewFolder {
         let NameNewFolder = document.querySelector('#NameNewFolder')
         if (NameNewFolder.value == '') {
             info = false
-        } else if (NameNewFolder.value.length > 10) {
+        } else if (NameNewFolder.value.length > 25) {
             info = false
         } else {
             info = true
@@ -211,17 +206,77 @@ class NewFolder {
             </div>
         </div>
         `
+        return NewFolderTemplate
+    }
 
-        containerAllFolders.insertAdjacentHTML('afterbegin', NewFolderTemplate)
+    // add note in noteList
+    addNoteInList(noteText, noteID) {
+        containerAllFolders.insertAdjacentHTML('afterbegin', this.addNewFolderInDom(noteText, noteID))
     }
 
     // Display the New Folder modal input error
     error(info) {
         let newError = `<p class="errorModalNewFolder">${info}</p>`
         this.cheackValidationNewFolder().NameNewFolder.insertAdjacentHTML('afterend', newError)
+        // After 3 seconds, the error will be hidden
         setTimeout(() => {
             document.querySelector('.errorModalNewFolder').remove()
         }, 3000);
 
+    }
+}
+
+// Folder set in local storage
+class SetNewFolderInLS {
+    constructor(NameNewFolder, idRandom) {
+        this.NameNewFolder = NameNewFolder,
+            this.idRandom = idRandom
+    }
+
+    // save note in local storage
+    addNoteinLS() {
+        // 1. Load LS FOLDER
+        let LSFolder = this.loadOfLS()
+
+        // 2. Add new Folder
+        LSFolder.push({ folderText: this.NameNewFolder, folderID: this.idRandom })
+        // 3. Save FOLDER in LS
+        this.saveNotesInLS(LSFolder)
+    }
+
+    // load Folders from localstorage
+    loadOfLS() {
+        // 1. Load LS FOLDER
+        let LSFolder = JSON.parse(localStorage.getItem('folders'))
+
+        if (LSFolder == null) {
+            localStorage.setItem('folders', '[]')
+            LSFolder = JSON.parse(localStorage.getItem('folders'))
+        }
+
+        return LSFolder
+    }
+
+    // save all Folder in Local storage
+    saveNotesInLS(folder) {
+        // 3. Save folder in LS
+        let LSFolder = folder
+
+        LSFolder = JSON.stringify(LSFolder)
+        localStorage.setItem('folders', LSFolder)
+    }
+
+
+    // Load Folder on Page Load
+    loadNotesInPage() {
+        // STEP 1 :  Load All Folder from LS
+        let LSFolder = this.loadOfLS()
+
+        // STEP 2 : Add Folder on Page
+        LSFolder.forEach(
+            function (eachNote) {
+                new NewFolder().addNoteInList(eachNote.folderText, eachNote.folderID)
+            }
+        )
     }
 }

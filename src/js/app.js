@@ -24,6 +24,8 @@ let containerAddNewFolder = document.querySelector("#containerAddNewFolder")
 let closeModalAddNewFolder = document.querySelector("#closeModalAddNewFolder")
 // Select Add New Folder
 let iconAddNewFolder = document.querySelector("#iconAddNewFolder")
+// select btn save in modal new folder
+let saveNewFolder = document.querySelector("#saveNewFolder")
 
 
 // --event--
@@ -40,13 +42,22 @@ iconAddNewFolder.addEventListener('click', ShowModalAddNewFolder)
 // Hide the modal by clicking the delete icon on the modal
 closeModalAddNewFolder.addEventListener('click', closeModalNewFolder)
 document.addEventListener("DOMContentLoaded", loadPage)
-
+// create new folder and show in dom
+saveNewFolder.addEventListener('click', createNewFolder)
+// load all notes
+document.addEventListener('DOMContentLoaded', new SetNewFolderInLS().loadNotesInPage())
 
 
 // -- function---
 function loadPage() {
     let notePage = new Note()
     notePage.laodNotesInPage()
+}
+
+// create new folder and show in dom
+function createNewFolder() {
+    // Calling the create new folder method in the new folder class
+    new NewFolder().createNewFolder()
 }
 
 
