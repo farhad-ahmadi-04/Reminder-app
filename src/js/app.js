@@ -177,8 +177,11 @@ function saveNote() {
     let noteId = (Math.random() * 1000000).toFixed()
 
     if (validate(title, des)) {
+        // create obj from Note class
         let saving = new Note(title, des, noteId);
+        // use obj for add note to DOM + LS
         saving.addNewNote()
+        // change display of modal
         newToDo.style.display = 'none';
         document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
         document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value = "";

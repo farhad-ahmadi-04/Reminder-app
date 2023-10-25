@@ -165,7 +165,7 @@ main {
     flex-direction: column;
     align-items: center;
     width: calc(100% - 100px);
-    height: calc(100% - 400px);
+    /* height: calc(100% - 600px); */
     background: rgba(66, 92, 156, 0.35);
     border-radius: 10px;
     margin: 0 auto;
@@ -220,6 +220,7 @@ main {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 15%;
 }
 
 .time svg {
@@ -310,11 +311,20 @@ main {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 20px;
 }
 
-.footerNewToDo>div>svg {
-    width: 20px;
+.footerNewToDo>div:first-of-type {
+    color: #E36161;
+}
+
+.footerNewToDo>div:last-of-type {
+    color: #53DE71;
+}
+
+
+.footerNewToDo>div>img {
+    width: 1.5vh;
 }
 
 /* svg of cancel */

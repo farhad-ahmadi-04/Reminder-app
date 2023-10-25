@@ -130,9 +130,9 @@ class Note {
     // add note to DOM + LS
     addNewNote() {
         // for add note to DOM
-        this.addNoteToNoteList(this.title, this.noteId, this.description)
+        this.addNoteToNoteList(this.title, this.noteID, this.description)
         // save note in LS
-        this.noteLs.addNoteInLS(this.title, this.noteId, this.description)
+        this.noteLs.addNoteInLS(this.title, this.noteID, this.description)
     }
 
 
