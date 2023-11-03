@@ -450,6 +450,10 @@ main {
     width: 3vh;
 }
 
+#containerAllFolders div>div:nth-of-type(1)>h3 {
+    margin: 0;
+}
+
 .errorModalNewFolder {
     color: red;
     font-weight: bold;

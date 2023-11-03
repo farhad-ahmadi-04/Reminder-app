@@ -167,7 +167,7 @@ class NewFolder {
         } else {
             // Error calling function
             // set Input error text
-            this.error('the name min 1 character and max 25 character')
+            this.error('the name min 1 character and max 13 character')
         }
     }
     // New folder modal validation check
@@ -176,7 +176,7 @@ class NewFolder {
         let NameNewFolder = document.querySelector('#NameNewFolder')
         if (NameNewFolder.value == '') {
             info = false
-        } else if (NameNewFolder.value.length > 25) {
+        } else if (NameNewFolder.value.length > 13) {
             info = false
         } else {
             info = true
@@ -195,12 +195,12 @@ class NewFolder {
     // Create and display folders in Dom
     addNewFolderInDom(info, IdRandom) {
         let NewFolderTemplate = `
-        <div data-id="${IdRandom}">
+        <div class="${IdRandom} folder">
             <div>
-                <span>${info}</span>
+                <h3 class="h3">${info}</h3>
             </div>
             <div>
-                <span>0,File</span>
+                <span>0, File</span>
                 <img src="images/icons/folder.svg" alt="">
                 <img src="images/icons/setting.svg" alt="">
             </div>
@@ -296,6 +296,7 @@ class Calendar {
         this.date.setMonth(this.date.getMonth() - 1)
     }
 }
+
 // Folder set in local storage
 class SetNewFolderInLS {
     constructor(NameNewFolder, idRandom) {
@@ -353,3 +354,35 @@ class SetNewFolderInLS {
         )
     }
 }
+
+// class showNoteInFolder {
+    // ......................................................
+
+    // asd(e) {
+    // showNoteInFolder(e) {
+    //     if (e.target.classList.contains('folder')) {
+    //         this.addBtnNewHeader(e.target.querySelector('h3').textContent)
+    //         changeSectionInMain(4)
+    //         ChangeTheNewAddIcon(1)
+    //     } else if (e.target.classList.contains('h3')) {
+    //         this.addBtnNewHeader(e.target.textContent)
+    //         changeSectionInMain(4)
+    //         ChangeTheNewAddIcon(1)
+    //     }
+    // }
+
+    // z = 0
+    // addBtnNewHeader(valueTitleFolder) {
+    //     z++
+    //     this.removeBtnHeader(z)
+    //     let newLi = `<li id="asd" value="4">${valueTitleFolder}</li>`
+    //     navHeader.insertAdjacentHTML('beforeend', newLi)
+    // }
+
+    // //
+    // removeBtnHeader(info) {
+    //     if (info > 1) {
+    //         document.querySelector('#asd').remove()
+    //     }
+    // }
+// }

@@ -27,11 +27,17 @@ let containerAddNewFolder = document.querySelector("#containerAddNewFolder")
 let closeModalAddNewFolder = document.querySelector("#closeModalAddNewFolder")
 // Select Add New Folder
 let iconAddNewFolder = document.querySelector("#iconAddNewFolder")
+let svgAddNoteInFolder = document.querySelector("#iconAddNewFolder")
 
 const prev = document.querySelector(".prev") // prev icon in calendar
 const next = document.querySelector(".next") // next icon in calendar
 // select btn save in modal new folder
 let saveNewFolder = document.querySelector("#saveNewFolder")
+
+// 
+let activeNow = document.querySelector("#activeNow")
+let folder = document.querySelector('.folder')
+
 
 
 
@@ -56,6 +62,8 @@ next.addEventListener("touchend", nextMonth)
 saveNewFolder.addEventListener('click', createNewFolder)
 // load all notes
 document.addEventListener('DOMContentLoaded', new SetNewFolderInLS().loadNotesInPage())
+// 
+containerAllFolders.addEventListener('click', showNoteInFolder)
 
 
 // -- function---
@@ -70,12 +78,14 @@ function createNewFolder() {
     new NewFolder().createNewFolder()
 }
 
-
-// Switch main sections by clicking on the header navigation
 function TabSwitchInMain(e) {
     // Get the value of the clicked element
-    let info = e.target.value
+    // Send the received value to the changeSectionInMain function 
+    changeSectionInMain(e.target.value)
+}
 
+// Switch main sections by clicking on the header navigation
+function changeSectionInMain(info) {
 
     switch (info) {
         case 1:
@@ -101,12 +111,12 @@ function TabSwitchInMain(e) {
         case 3:
             // Delete all main sections
             removeSection()
-            console.log('3');
             break;
         case 4:
             // Delete all main sections
             removeSection()
-            console.log('4');
+            // 
+            svgAddNote.style.display = 'inline-block'
             break;
     }
 }
@@ -122,13 +132,16 @@ function removeSection() {
 
 // show tremplate for add notre
 function addTemplate() {
-    newToDo.style.display = 'flex'
+    // newToDo.style.display = 'flex'
+    newToDoTemolate(newToDo)
 }
+
 // Change the add icon in the footer
 function ChangeTheNewAddIcon(key) {
     // Hide all footer icons
     svgAddNote.style.display = 'none'
     iconAddNewFolder.style.display = 'none'
+    svgAddNoteInFolder.style.display = 'none'
 
     // Display the icon relative to the page in the footer
     switch (key) {
@@ -137,6 +150,9 @@ function ChangeTheNewAddIcon(key) {
             break;
         case 2:
             iconAddNewFolder.style.display = 'inline-block'
+            break;
+        case 4:
+            svgAddNoteInFolder.style.display = 'inline-block'
             break;
     }
 }
@@ -243,4 +259,32 @@ function showCalender() {
     calendarModal.style.display = "flex";
     cal.monthTitle()
     cal.monthDays()
+}
+// ...........................
+
+function showNoteInFolder(e) {
+    if (e.target.classList.contains('folder')) {
+        addBtnNewHeader(e.target.querySelector('h3').textContent)
+        changeSectionInMain(4)
+        ChangeTheNewAddIcon(1)
+    } else if (e.target.classList.contains('h3')) {
+        addBtnNewHeader(e.target.textContent)
+        changeSectionInMain(4)
+        ChangeTheNewAddIcon(1)
+    }
+}
+
+z = 0
+function addBtnNewHeader(valueTitleFolder) {
+    z++
+    removeBtnHeader(z)
+    let newLi = `<li id="asd" value="4">${valueTitleFolder}</li>`
+    navHeader.insertAdjacentHTML('beforeend', newLi)
+}
+
+//
+function removeBtnHeader(info) {
+    if (info > 1) {
+        document.querySelector('#asd').remove()
+    }
 }
