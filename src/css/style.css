@@ -166,13 +166,18 @@ main {
     align-items: center;
     width: calc(100% - 100px);
     /* height: calc(100% - 600px); */
-    background: rgba(66, 92, 156, 0.35);
+    background: rgba(102, 111, 135, 0.97);
     border-radius: 10px;
     margin: 0 auto;
-    color: #414141;
+    color: #fff;
     position: absolute;
     top: 15%;
     left: 5%;
+}
+
+.newToDo>div>h3 {
+    text-align: center;
+    letter-spacing: 1.92px;
 }
 
 .newToDo label {

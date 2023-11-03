@@ -27,7 +27,7 @@ let containerAddNewFolder = document.querySelector("#containerAddNewFolder")
 let closeModalAddNewFolder = document.querySelector("#closeModalAddNewFolder")
 // Select Add New Folder
 let iconAddNewFolder = document.querySelector("#iconAddNewFolder")
-let svgAddNoteInFolder = document.querySelector("#iconAddNewFolder")
+let svgAddNoteInFolder = document.querySelector("#svgAddNoteInFolder")
 
 const prev = document.querySelector(".prev") // prev icon in calendar
 const next = document.querySelector(".next") // next icon in calendar
@@ -37,6 +37,8 @@ let saveNewFolder = document.querySelector("#saveNewFolder")
 // 
 let activeNow = document.querySelector("#activeNow")
 let folder = document.querySelector('.folder')
+const activeNowToDo = document.querySelector('#activeNow>.activeNowToDo')
+const iconAddNewNoteInAlarm = document.querySelector('#iconAddNewNoteInAlarm')
 
 
 
@@ -64,6 +66,7 @@ saveNewFolder.addEventListener('click', createNewFolder)
 document.addEventListener('DOMContentLoaded', new SetNewFolderInLS().loadNotesInPage())
 // 
 containerAllFolders.addEventListener('click', showNoteInFolder)
+svgAddNoteInFolder.addEventListener("click", addNewNoteInFolder)
 
 
 // -- function---
@@ -115,8 +118,11 @@ function changeSectionInMain(info) {
         case 4:
             // Delete all main sections
             removeSection()
-            // 
-            svgAddNote.style.display = 'inline-block'
+
+            // svgAddNote.style.display = 'inline-block'
+            // Change the add icon in the footer
+            ChangeTheNewAddIcon(4)
+
             break;
     }
 }
@@ -132,21 +138,25 @@ function removeSection() {
 
 // show tremplate for add notre
 function addTemplate() {
-    // newToDo.style.display = 'flex'
-    newToDoTemolate(newToDo)
+    newToDo.style.display = 'flex'
+
+}
+
+function addNewNoteInFolder() {
+    activeNowToDo.style.display = 'flex'
 }
 
 // Change the add icon in the footer
 function ChangeTheNewAddIcon(key) {
     // Hide all footer icons
-    svgAddNote.style.display = 'none'
+    adding.style.display = 'none'
     iconAddNewFolder.style.display = 'none'
     svgAddNoteInFolder.style.display = 'none'
 
     // Display the icon relative to the page in the footer
     switch (key) {
         case 1:
-            svgAddNote.style.display = 'inline-block'
+            adding.style.display = 'inline-block'
             break;
         case 2:
             iconAddNewFolder.style.display = 'inline-block'
@@ -275,6 +285,7 @@ function showNoteInFolder(e) {
 }
 
 z = 0
+
 function addBtnNewHeader(valueTitleFolder) {
     z++
     removeBtnHeader(z)

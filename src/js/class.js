@@ -271,13 +271,11 @@ class Calendar {
         for (let j = this.firstDayIndex; j > 0; j--) {
             day = `<div class="prev-date">${this.prevLastDay - j}</div>`
         }
-        // fro show current + dates of the month
+        // for show current + dates of the month
         for (let i = 1; i < this.lastDay; i++) {
             if (i === new Date().getDate() && this.date.getMonth() === new Date().getMonth()) {
-                console.log("today");
                 day += `<div class="today">${i}</div>`
             } else {
-                console.log("sd");
                 day += `<div>${i}</div>`
             }
         }
@@ -356,33 +354,33 @@ class SetNewFolderInLS {
 }
 
 // class showNoteInFolder {
-    // ......................................................
+// ......................................................
 
-    // asd(e) {
-    // showNoteInFolder(e) {
-    //     if (e.target.classList.contains('folder')) {
-    //         this.addBtnNewHeader(e.target.querySelector('h3').textContent)
-    //         changeSectionInMain(4)
-    //         ChangeTheNewAddIcon(1)
-    //     } else if (e.target.classList.contains('h3')) {
-    //         this.addBtnNewHeader(e.target.textContent)
-    //         changeSectionInMain(4)
-    //         ChangeTheNewAddIcon(1)
-    //     }
-    // }
+// asd(e) {
+// showNoteInFolder(e) {
+//     if (e.target.classList.contains('folder')) {
+//         this.addBtnNewHeader(e.target.querySelector('h3').textContent)
+//         changeSectionInMain(4)
+//         ChangeTheNewAddIcon(1)
+//     } else if (e.target.classList.contains('h3')) {
+//         this.addBtnNewHeader(e.target.textContent)
+//         changeSectionInMain(4)
+//         ChangeTheNewAddIcon(1)
+//     }
+// }
 
-    // z = 0
-    // addBtnNewHeader(valueTitleFolder) {
-    //     z++
-    //     this.removeBtnHeader(z)
-    //     let newLi = `<li id="asd" value="4">${valueTitleFolder}</li>`
-    //     navHeader.insertAdjacentHTML('beforeend', newLi)
-    // }
+// z = 0
+// addBtnNewHeader(valueTitleFolder) {
+//     z++
+//     this.removeBtnHeader(z)
+//     let newLi = `<li id="asd" value="4">${valueTitleFolder}</li>`
+//     navHeader.insertAdjacentHTML('beforeend', newLi)
+// }
 
-    // //
-    // removeBtnHeader(info) {
-    //     if (info > 1) {
-    //         document.querySelector('#asd').remove()
-    //     }
-    // }
+// //
+// removeBtnHeader(info) {
+//     if (info > 1) {
+//         document.querySelector('#asd').remove()
+//     }
+// }
 // }
