@@ -243,9 +243,12 @@ function saveNote() {
 
     if (validate(title, des)) {
         // create obj from Note class
-        let saving = new Note(title, des, noteId);
+        let saveInDom = new Note(title, des, noteId);
+        const saveInLs = new NoteLs()
         // use obj for add note to DOM + LS
-        saving.addNewNote()
+        saveInDom.addNewNote()
+
+        saveInLs.addNoteInLS(title, noteId, des)
         // change display of modal
         newToDo.style.display = 'none';
         document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
