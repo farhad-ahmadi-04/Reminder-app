@@ -12,13 +12,13 @@ let alarmsSecion = document.querySelector('#alarmsSecion')
 let main = document.querySelector('main section')
 
 let dateButton = document.querySelector(".time>div>button"); //date btn in landing page
-const dateButtonSvg = document.querySelector(".time>div>button>svg"); //svg in date btn in landing page
+const dateButtonimg = document.querySelector(".time>div>button>img"); //svg in date btn in landing page
 const date = document.querySelector(".date") // date section
 const save = document.querySelector(".footerNewToDo>div:last-of-type");
 const cancel = document.querySelector(".footerNewToDo>div:first-of-type");
 const adding = document.querySelector("#svgAddNote")
 const newToDo = document.querySelector("#allSection .newToDo")
-const calendarModalSvg = document.querySelector(".calendar>svg")
+const calendarModalSvg = document.querySelector(".calendar:not(.calendarModal)")
 const calendarModal = document.querySelector(".calendarModal")
 
 // Modal to create a new folder
@@ -37,9 +37,12 @@ let saveNewFolder = document.querySelector("#saveNewFolder")
 // The user is active in this section
 let activeNow = document.querySelector("#activeNow")
 // modal (create new note in folder)
-let activeNowToDo = document.querySelector('#activeNow>.newToDo')
+let activeNowToDo = document.querySelector('#activeNow >.newToDo')
 // div close modal (create new note in folder)
 let closeModalAddNewNoteInFolder = document.querySelector('#activeNow .footerNewToDo #lcose')
+let folder = document.querySelector('.folder')
+const iconAddNewNoteInAlarm = document.querySelector('#iconAddNewNoteInAlarm')
+const days = document.querySelector(".days") // days in calender
 
 
 // --event--
@@ -71,6 +74,7 @@ containerAllFolders.addEventListener('click', showNoteInFolder)
 svgAddNoteInFolder.addEventListener("click", addNewNoteInFolder)
 // close modal new note in folder
 closeModalAddNewNoteInFolder.addEventListener('click', closeModalNewNoteInFolder)
+days.addEventListener("click", fullDate) // for show date in template
 
 
 // -- function---
@@ -96,6 +100,7 @@ function changeSectionInMain(info) {
 
     switch (info) {
         case 1:
+            info.classList = "activeLi"
             // Delete all main sections
             removeSection()
             // The display section is all flexed
@@ -224,10 +229,10 @@ function setDate() {
 // + resulte : change position of svg in btn
 function svgPosition(num) {
     // Find the current value of left
-    let svgPosition = parseInt(getComputedStyle(dateButtonSvg).left);
+    let svgPosition = parseInt(getComputedStyle(dateButtonimg).left);
     // change svg position to right or left
     let newLeft = svgPosition + num;
-    dateButtonSvg.style.left = newLeft + 'px';
+    dateButtonimg.style.left = newLeft + 'px';
 }
 
 // save note to DOM
@@ -284,6 +289,22 @@ function showCalender() {
     cal.monthDays()
 }
 
+function fullDate(e) {
+    let month = document.querySelector(".calendarHeader>div h3").textContent
+    let year = document.querySelector(".calendarHeader>div>p").textContent
+    year.toString()
+
+    let day = e.target.textContent
+    console.log(year, month, day);
+    let days = new Date(`${year}, ${month}, ${day}`)
+    days.getMonth()
+    console.log(days.getMonth());
+    console.log(days.getFullYear());
+    console.log(days.getDay());
+
+}
+// ...........................
+
 // show notes in folder
 function showNoteInFolder(e) {
     // If you click on the folder
@@ -303,6 +324,7 @@ function showNoteInFolder(e) {
 
 // Description in removeBtnHeader function
 let info = 0
+
 function addBtnNewHeader(valueTitleFolder) {
     info++
     removeBtnHeader(info)

@@ -92,12 +92,15 @@ class Note {
         return `
         <li data-id='${noteID}' class="noteLi">
             <div class="noteHeader">
-                <div><img src="../../images/icons/Vector.svg" alt=""></div>
-                <h3>${notwTitle}</h3>
-                <div><img src="../../images/icons/icons8-setting (1).svg" alt=""></div>
+            <h3>${notwTitle}</h3>
+            <div><img src="../../images/icons/Vector.svg" alt=""></div>
             </div>
             <div class="noteMain">
                 <p>${noteText}</p>
+            </div>
+            <div class="dateTime">
+                <div>2023/10/04</div>
+                <div>22:30</div>
             </div>
         </li>
     `
@@ -261,7 +264,7 @@ class Calendar {
         // set value for month
         mothHeader.setAttribute("value", this.date.getMonth())
         // set date
-        document.querySelector(".calendarHeader>div p").innerHTML = this.date.toDateString()
+        document.querySelector(".calendarHeader>div p").innerHTML = this.date.getFullYear()
     }
     // show date + prevent and next date
     monthDays() {

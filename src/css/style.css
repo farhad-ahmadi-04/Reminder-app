@@ -1,9 +1,15 @@
+@font-face {
+    font-family: inder;
+    src: url(../../Inder/Inder-Regular.ttf);
+}
+
 /* margin pish farz body ro hazt beshavad */
 body {
     margin: 0;
-    background-color: #D8E3C9;
+    background: linear-gradient(180deg, #F2F2F2 21.77%, rgba(231, 231, 231, 0.40) 65.92%, rgba(121, 121, 121, 0.46) 100%);
     font-size: 5vw;
     font-size: calc(20px + 1vh);
+    font-family: inder;
 }
 
 /* hame li ha list-style ha shon none beshavad */
@@ -24,8 +30,8 @@ header {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    background-color: #D8E3C9;
-    box-shadow: 0 1vh 2vh 2vh #d8e3c9;
+    background-color: #F2F2F2;
+    /* box-shadow: 0 1vh 2vh 2vh #F2F2F2; */
     padding: 2vh 0 0 0;
 }
 
@@ -49,12 +55,9 @@ header {
     margin: 0.4vh;
     font-size: 2vh;
     font-weight: bold;
-
     border-radius: 1.5vh;
-
-    background-image: linear-gradient(top #79797955, #797979);
+    background: linear-gradient(top #79797955, #797979);
     color: #464646;
-
     box-shadow: 0vh 0.4vh 0.3vh 0.2vh #afafaf;
 }
 
@@ -132,7 +135,6 @@ main {
 .mood>span {
     width: 25px;
     height: 14px;
-
 }
 
 .mood>.sunMoon {
@@ -173,34 +175,48 @@ main {
     position: absolute;
     top: 15%;
     left: 5%;
+
 }
 
 .newToDo>div>h3 {
     text-align: center;
     letter-spacing: 1.92px;
+    margin-top: 1%;
+    font-size: 2.9rem;
 }
 
 .newToDo label {
     display: block;
     margin-bottom: 10px;
+    color: #F5F5F5;
+    font-size: 2.9rem
 }
 
 .newToDo input {
     width: 100%;
-    padding: 15px 0px 15px 0px;
+    padding: 15px 38px;
     background: #EFEFEF;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     border: none;
+    font-size: 40px;
+    outline: none;
+    box-sizing: border-box;
 }
 
 .newToDo textarea {
     width: 100%;
-    padding: 15px 0px 15px 0px;
+    padding: 15px 38px;
     background: #EFEFEF;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     border: none;
+    font-size: 3rem;
+    height: 15vh;
+    outline: none;
+    text-align: justify;
+    resize: none;
+    box-sizing: border-box;
 }
 
 .newToDo>div:first-of-type {
@@ -256,11 +272,14 @@ main {
     padding: 5px;
 }
 
-.newToDo .time button>svg {
+.newToDo .time button>img {
     position: absolute;
     left: 5px;
-    top: 0px;
-    transform: translate(0%, -5%);
+    top: 16px;
+    transform: translate(0%, 5%) scale(4);
+    width: 20px;
+    height: 20px;
+
 }
 
 .activeSvg {
@@ -289,9 +308,8 @@ main {
     border-right: 1px solid #393939;
     border-bottom: 1px solid #393939;
     border-left: 1px solid #393939;
-
     box-shadow: 0px 2px 3px 0px #000;
-    padding: 5px 10px;
+    padding: 5px 3vw;
 }
 
 .time>.date>div:last-of-type>span:active {
@@ -307,7 +325,7 @@ main {
 
 .footerNewToDo>div {
     box-sizing: border-box;
-    background: #EFEFEF;
+    /* background: #EFEFEF; */
     border: 2px solid rgba(0, 0, 0, 0.32);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.36);
     border-radius: 5px;
@@ -343,11 +361,9 @@ main {
 
 .folderSection {
     width: 90%;
-    height: 30vh;
-
+    height: 66vh;
     margin: 0 auto;
-
-
+    overflow-y: scroll;
     display: none;
 
 }
@@ -434,12 +450,9 @@ main {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     background-image: linear-gradient(#faf4f4, #7b7a7a42, #68686874);
     box-shadow: 0vh 0.4vh 1vh 0.2vh #afafaf;
-
     border-radius: 1vh;
-
     padding: 2vh;
     margin-bottom: 2vh;
 }
@@ -465,15 +478,21 @@ main {
     font-size: 1.6vh;
 }
 
+#alarmsSecion {
+    width: 90%;
+    height: 65vh;
+    margin: 0 auto;
+    overflow-y: scroll;
+}
+
 /*........................ footer style .......................... */
 
 /* footer style */
 footer {
     position: fixed;
-    bottom: 1vh;
-    right: 0;
-    left: 0;
-    width: 80%;
+    bottom: 0;
+    padding: 10px 0px 20px 0px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -484,7 +503,7 @@ footer {
 footer>div {
     margin: 1vh auto;
     text-align: right;
-    width: 100%;
+    width: 80%;
 }
 
 /* The number of two div in the footer (bottom div) */
