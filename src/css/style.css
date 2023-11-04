@@ -523,3 +523,8 @@ footer input {
 #svgAddNote {
     width: 9.5vh;
 }
+
+#svgAddNoteInFolder {
+    width: 9.5vh;
+    display: none;
+}

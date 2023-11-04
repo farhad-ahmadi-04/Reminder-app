@@ -17,7 +17,7 @@ const date = document.querySelector(".date") // date section
 const save = document.querySelector(".footerNewToDo>div:last-of-type");
 const cancel = document.querySelector(".footerNewToDo>div:first-of-type");
 const adding = document.querySelector("#svgAddNote")
-const newToDo = document.querySelector(".newToDo")
+const newToDo = document.querySelector("#allSection .newToDo")
 const calendarModalSvg = document.querySelector(".calendar>svg")
 const calendarModal = document.querySelector(".calendarModal")
 
@@ -25,22 +25,21 @@ const calendarModal = document.querySelector(".calendarModal")
 let containerAddNewFolder = document.querySelector("#containerAddNewFolder")
 // button to delete the modal to create a new folder
 let closeModalAddNewFolder = document.querySelector("#closeModalAddNewFolder")
-// Select Add New Folder
+// icon Add New Folder
 let iconAddNewFolder = document.querySelector("#iconAddNewFolder")
+// icon add new not in folder
 let svgAddNoteInFolder = document.querySelector("#svgAddNoteInFolder")
 
 const prev = document.querySelector(".prev") // prev icon in calendar
 const next = document.querySelector(".next") // next icon in calendar
 // select btn save in modal new folder
 let saveNewFolder = document.querySelector("#saveNewFolder")
-
-// 
+// The user is active in this section
 let activeNow = document.querySelector("#activeNow")
-let folder = document.querySelector('.folder')
-const activeNowToDo = document.querySelector('#activeNow>.activeNowToDo')
-const iconAddNewNoteInAlarm = document.querySelector('#iconAddNewNoteInAlarm')
-
-
+// modal (create new note in folder)
+let activeNowToDo = document.querySelector('#activeNow>.newToDo')
+// div close modal (create new note in folder)
+let closeModalAddNewNoteInFolder = document.querySelector('#activeNow .footerNewToDo #lcose')
 
 
 // --event--
@@ -64,9 +63,14 @@ next.addEventListener("touchend", nextMonth)
 saveNewFolder.addEventListener('click', createNewFolder)
 // load all notes
 document.addEventListener('DOMContentLoaded', new SetNewFolderInLS().loadNotesInPage())
-// 
+// show notes in folder 
+// create new btn in header
+//  Switch to the notes screen in the folder
 containerAllFolders.addEventListener('click', showNoteInFolder)
+// show modal create new not in folder
 svgAddNoteInFolder.addEventListener("click", addNewNoteInFolder)
+// close modal new note in folder
+closeModalAddNewNoteInFolder.addEventListener('click', closeModalNewNoteInFolder)
 
 
 // -- function---
@@ -99,7 +103,7 @@ function changeSectionInMain(info) {
             // Change the add icon in the footer
             ChangeTheNewAddIcon(1)
             // Removing the New Folder modal opened when switching pages
-            closeModalNewFolder()
+            closeModalNewNote()
             break;
         case 2:
             // Delete all main sections
@@ -109,7 +113,7 @@ function changeSectionInMain(info) {
             // Change the add icon in the footer
             ChangeTheNewAddIcon(2)
             // Removing the New Note modal opened when switching pages
-            closeModalNewNote()
+            closeModalNewFolder()
             break;
         case 3:
             // Delete all main sections
@@ -118,11 +122,12 @@ function changeSectionInMain(info) {
         case 4:
             // Delete all main sections
             removeSection()
-
-            // svgAddNote.style.display = 'inline-block'
+            // The display section is active now flexed
+            activeNow.style.display = 'inline-block'
             // Change the add icon in the footer
             ChangeTheNewAddIcon(4)
-
+            // close modal add new note in folder
+            closeModalNewNoteInFolder()
             break;
     }
 }
@@ -136,12 +141,13 @@ function removeSection() {
     }
 }
 
-// show tremplate for add notre
+// show template for add notre
 function addTemplate() {
     newToDo.style.display = 'flex'
 
 }
 
+// show template add new note in folder
 function addNewNoteInFolder() {
     activeNowToDo.style.display = 'flex'
 }
@@ -182,6 +188,13 @@ function closeModalNewNote() {
     newToDo.style.display = 'none'
 }
 
+// close from modal create new note in folder
+// Emptying the value of template inputs
+function closeModalNewNoteInFolder() {
+    activeNowToDo.style.display = 'none'
+    activeNowToDo.querySelector('input').value = ''
+    activeNowToDo.querySelector('textarea').value = ''
+}
 
 // status of date div 
 let isDivVisible = false;
@@ -236,7 +249,7 @@ function saveNote() {
         alert("RIP...")
     }
 }
-// ifuser cancel the save note 
+// if user cancel the save note 
 function cancelNote() {
     newToDo.style.display = 'none';
     document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
@@ -270,32 +283,41 @@ function showCalender() {
     cal.monthTitle()
     cal.monthDays()
 }
-// ...........................
 
+// show notes in folder
 function showNoteInFolder(e) {
+    // If you click on the folder
     if (e.target.classList.contains('folder')) {
+        //set the title folder
         addBtnNewHeader(e.target.querySelector('h3').textContent)
+        // show page notes in folder
         changeSectionInMain(4)
-        ChangeTheNewAddIcon(1)
+        // If you click on the title folder
     } else if (e.target.classList.contains('h3')) {
+        //set the title folder
         addBtnNewHeader(e.target.textContent)
+        // show page notes in folder
         changeSectionInMain(4)
-        ChangeTheNewAddIcon(1)
     }
 }
 
-z = 0
-
+// Description in removeBtnHeader function
+let info = 0
 function addBtnNewHeader(valueTitleFolder) {
-    z++
-    removeBtnHeader(z)
-    let newLi = `<li id="asd" value="4">${valueTitleFolder}</li>`
+    info++
+    removeBtnHeader(info)
+    // create new btn 
+    let newLi = `<li id="liActiveNow" value="4">${valueTitleFolder}</li>`
+    // show new btn in header for title folder( new / show )
     navHeader.insertAdjacentHTML('beforeend', newLi)
 }
 
-//
+// remove btn title folder in header
 function removeBtnHeader(info) {
+    // In the first click, info is 0, and in the second click, info becomes more than 0
+    // When it leaves a folder and goes to another folder, so that the first one is deleted and the new folder title is displayed.
+    // We leave the info at 0 in the first step
     if (info > 1) {
-        document.querySelector('#asd').remove()
+        document.querySelector('#liActiveNow').remove()
     }
 }
