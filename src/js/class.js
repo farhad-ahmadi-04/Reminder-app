@@ -275,9 +275,9 @@ class Calendar {
         // for show current + dates of the month
         for (let i = 1; i < this.lastDay; i++) {
             if (i === new Date().getDate() && this.date.getMonth() === new Date().getMonth()) {
-                day += `<div class="today">${i}</div>`
+                day += `<div value="${i}" class="today">${i}</div>`
             } else {
-                day += `<div>${i}</div>`
+                day += `<div value="${i}">${i}</div>`
             }
         }
         // for show date in next month

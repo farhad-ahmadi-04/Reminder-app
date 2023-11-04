@@ -42,10 +42,16 @@ let activeNowToDo = document.querySelector('#activeNow >.newToDo')
 let closeModalAddNewNoteInFolder = document.querySelector('#activeNow .footerNewToDo #lcose')
 
 let saveModalAddNewNoteInFolder = document.querySelector('#activeNow .footerNewToDo #save')
-console.log(saveModalAddNewNoteInFolder);
 let folder = document.querySelector('.folder')
 const iconAddNewNoteInAlarm = document.querySelector('#iconAddNewNoteInAlarm')
 const days = document.querySelector(".days") // days in calender
+// years span in date div
+const yearSpan = document.querySelector(".resulteDate>span:first-of-type")
+// month span in date div
+const monthSpan = document.querySelector(".resulteDate>span:nth-of-type(2)")
+// day span in date div
+const daySpan = document.querySelector(".resulteDate>span:last-of-type")
+
 
 
 // --event--
@@ -77,7 +83,7 @@ containerAllFolders.addEventListener('click', showNoteInFolder)
 svgAddNoteInFolder.addEventListener("click", addNewNoteInFolder)
 // close modal new note in folder
 closeModalAddNewNoteInFolder.addEventListener('click', closeModalNewNoteInFolder)
-days.addEventListener("click", fullDate) // for show date in template
+days.addEventListener("touchend ", fullDate) // for show date in template
 
 
 // -- function---
@@ -296,17 +302,18 @@ function showCalender() {
 }
 
 function fullDate(e) {
+
     let month = document.querySelector(".calendarHeader>div h3").textContent
     let year = document.querySelector(".calendarHeader>div>p").textContent
     year.toString()
+    console.log(yearSpan, monthSpan, daySpan);
+    let day = e.target.value
+    yearSpan.textContent = `${year}/`
+    monthSpan.textContent = `${month}/`
+    daySpan.textContent = day
 
-    let day = e.target.textContent
-    console.log(year, month, day);
-    let days = new Date(`${year}, ${month}, ${day}`)
-    days.getMonth()
-    console.log(days.getMonth());
-    console.log(days.getFullYear());
-    console.log(days.getDay());
+    calendarModal.style.display = "none"
+
 
 }
 // ...........................
