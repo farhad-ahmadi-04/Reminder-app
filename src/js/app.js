@@ -40,6 +40,9 @@ let activeNow = document.querySelector("#activeNow")
 let activeNowToDo = document.querySelector('#activeNow >.newToDo')
 // div close modal (create new note in folder)
 let closeModalAddNewNoteInFolder = document.querySelector('#activeNow .footerNewToDo #lcose')
+
+let saveModalAddNewNoteInFolder = document.querySelector('#activeNow .footerNewToDo #save')
+console.log(saveModalAddNewNoteInFolder);
 let folder = document.querySelector('.folder')
 const iconAddNewNoteInAlarm = document.querySelector('#iconAddNewNoteInAlarm')
 const days = document.querySelector(".days") // days in calender
@@ -266,7 +269,7 @@ function cancelNote() {
 // validation for add note
 function validate(tit, des) {
     let status = false;
-    if (tit == "" && des == "") {
+    if (tit == "" && des == "" || tit.length > 13) {
         status = false;
     } else {
         status = true;
@@ -313,26 +316,28 @@ function showNoteInFolder(e) {
     // If you click on the folder
     if (e.target.classList.contains('folder')) {
         //set the title folder
-        addBtnNewHeader(e.target.querySelector('h3').textContent)
+        addBtnNewHeader(e.target.querySelector('h3').textContent, e.target.classList[0])
         // show page notes in folder
         changeSectionInMain(4)
         // If you click on the title folder
     } else if (e.target.classList.contains('h3')) {
         //set the title folder
-        addBtnNewHeader(e.target.textContent)
+        addBtnNewHeader(e.target.textContent, e.target.parentElement.parentElement.classList[0])
         // show page notes in folder
         changeSectionInMain(4)
     }
+
+    return e.target.classList
 }
 
 // Description in removeBtnHeader function
 let info = 0
 
-function addBtnNewHeader(valueTitleFolder) {
+function addBtnNewHeader(valueTitleFolder, x) {
     info++
     removeBtnHeader(info)
     // create new btn 
-    let newLi = `<li id="liActiveNow" value="4">${valueTitleFolder}</li>`
+    let newLi = `<li id="liActiveNow" class="${x}" value="4">${valueTitleFolder}</li>`
     // show new btn in header for title folder( new / show )
     navHeader.insertAdjacentHTML('beforeend', newLi)
 }

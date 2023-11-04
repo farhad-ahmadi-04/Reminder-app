@@ -146,7 +146,6 @@ class Note {
     }
 }
 
-
 // add new folder in dom
 class NewFolder {
     // The controller method of the methods
@@ -310,10 +309,13 @@ class SetNewFolderInLS {
         let LSFolder = this.loadOfLS()
 
         // 2. Add new Folder
-        LSFolder.push({
-            folderText: this.NameNewFolder,
-            folderID: this.idRandom
-        })
+        LSFolder.push(
+            {
+                folderText: this.NameNewFolder,
+                folderID: this.idRandom,
+                arrayNotes: []
+            }
+        )
         // 3. Save FOLDER in LS
         this.saveNotesInLS(LSFolder)
     }
