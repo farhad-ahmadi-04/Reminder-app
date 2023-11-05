@@ -51,6 +51,7 @@ const yearSpan = document.querySelector(".resulteDate>span:first-of-type")
 const monthSpan = document.querySelector(".resulteDate>span:nth-of-type(2)")
 // day span in date div
 const daySpan = document.querySelector(".resulteDate>span:last-of-type")
+let clock = document.querySelector(".clock")
 
 
 
@@ -84,7 +85,7 @@ svgAddNoteInFolder.addEventListener("click", addNewNoteInFolder)
 // close modal new note in folder
 closeModalAddNewNoteInFolder.addEventListener('click', closeModalNewNoteInFolder)
 days.addEventListener("touchend ", fullDate) // for show date in template
-
+clock.addEventListener('click', setClock)
 
 // -- function---
 function loadPage() {
@@ -282,6 +283,7 @@ function validate(tit, des) {
     }
     return status
 }
+
 // for show next month in calendar
 function nextMonth() {
     cal.nextMonth()
@@ -313,9 +315,15 @@ function fullDate(e) {
     daySpan.textContent = day
 
     calendarModal.style.display = "none"
-
-
 }
+
+// --------------------- clock --------------------------
+function setClock(e) {
+    if (e.target.classList.contains('clock')) {
+        new Clock().showListHoursClock()
+    }
+}
+
 // ...........................
 
 // show notes in folder

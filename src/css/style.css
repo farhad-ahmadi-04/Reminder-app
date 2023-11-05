@@ -304,6 +304,33 @@ main {
     padding: 10px;
 }
 
+.clock {
+    position: relative;
+}
+
+.placeClock,
+.placeMinutes {
+    height: 15vh;
+    overflow-y: scroll;
+    width: 30%;
+    position: absolute;
+    top: 100%;
+    right: 5%;
+    margin: 0;
+}
+
+.placeMinutes {
+    right: 2%;
+}
+
+.optionClock,
+.optionMinutes {
+    background-color: red;
+    width: 90%;
+    text-align: center;
+    border: 0.3vh solid blue;
+}
+
 .time>.date>div:last-of-type>span {
     border-radius: 8px;
     border-right: 1px solid #393939;

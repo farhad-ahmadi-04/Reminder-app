@@ -233,6 +233,7 @@ class Calendar {
     constructor() {
         this.date = new Date(); //new date
         this.lastDay = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDate(); //last date of current month
+        console.log(this.lastDay);
         this.prevLastDay = new Date(this.date.getFullYear(), this.date.getMonth(), 0).getDate(); //last date of prevent month
         this.firstDayIndex = this.date.getDay(); //current day
         this.lastDayIndex = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDay(); // last day of current month
@@ -354,5 +355,46 @@ class SetNewFolderInLS {
                 new NewFolder().addNoteInList(eachNote.folderText, eachNote.folderID)
             }
         )
+    }
+}
+
+class Clock {
+    selctors() {
+        return {
+            liClock: document.querySelector('.selectedHour'),
+            placeClock: document.querySelector('.placeClock'),
+            SelectMinutes: document.querySelector('.SelectMinutes'),
+            placeMinutes: document.querySelector('.placeMinutes')
+        }
+    }
+
+    showListHoursClock() {
+
+        let placeClock = document.createElement('ul')
+        placeClock.classList.add('placeClock')
+        placeClock.insertAdjacentHTML('beforeend', `<li class="optionClock">ساعت</li>`)
+        for (let i = 1; i <= 24; i++) {
+            placeClock.insertAdjacentHTML('beforeend', `<li onclick="new Clock().setClock(${i})" class="optionClock">${i}</li>`)
+        }
+        clock.append(placeClock)
+    }
+    showListMinutes() {
+
+        let placeMinutes = document.createElement('ul')
+        placeMinutes.classList.add('placeMinutes')
+        placeMinutes.insertAdjacentHTML('beforeend', `<li class="optionMinutes">دقیقه</li>`)
+        for (let i = 1; i < 60; i++) {
+            placeMinutes.insertAdjacentHTML('beforeend', `<li onclick="new Clock().setMinutes(${i})" class="optionMinutes">${i}</li>`)
+        }
+        clock.append(placeMinutes)
+    }
+    setClock(e) {
+        this.selctors().liClock.innerHTML = e
+        this.selctors().placeClock.remove()
+        this.showListMinutes()
+    }
+    setMinutes(e) {
+        this.selctors().SelectMinutes.innerHTML = e
+        this.selctors().placeMinutes.remove()
     }
 }
