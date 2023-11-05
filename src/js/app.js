@@ -19,7 +19,7 @@ const cancel = document.querySelector(".footerNewToDo>div:first-of-type");
 const adding = document.querySelector("#svgAddNote")
 const newToDo = document.querySelector("#allSection .newToDo")
 const calendarModalSvg = document.querySelector(".calendar:not(.calendarModal)")
-const calendarModal = document.querySelector(".calendarModal")
+
 
 // Modal to create a new folder
 let containerAddNewFolder = document.querySelector("#containerAddNewFolder")
@@ -32,6 +32,7 @@ let svgAddNoteInFolder = document.querySelector("#svgAddNoteInFolder")
 
 const prev = document.querySelector(".prev") // prev icon in calendar
 const next = document.querySelector(".next") // next icon in calendar
+const calendarModal = document.querySelector(".calendarModal")
 // select btn save in modal new folder
 let saveNewFolder = document.querySelector("#saveNewFolder")
 // The user is active in this section
@@ -44,7 +45,8 @@ let closeModalAddNewNoteInFolder = document.querySelector('#activeNow .footerNew
 let saveModalAddNewNoteInFolder = document.querySelector('#activeNow .footerNewToDo #save')
 let folder = document.querySelector('.folder')
 const iconAddNewNoteInAlarm = document.querySelector('#iconAddNewNoteInAlarm')
-const days = document.querySelector(".days") // days in calender
+
+
 // years span in date div
 const yearSpan = document.querySelector(".resulteDate>span:first-of-type")
 // month span in date div
@@ -83,7 +85,9 @@ containerAllFolders.addEventListener('click', showNoteInFolder)
 svgAddNoteInFolder.addEventListener("click", addNewNoteInFolder)
 // close modal new note in folder
 closeModalAddNewNoteInFolder.addEventListener('click', closeModalNewNoteInFolder)
-days.addEventListener("touchend ", fullDate) // for show date in template
+
+// calendarModal.addEventListener("click", full) // for show date in template
+
 
 
 // -- function---
@@ -97,6 +101,7 @@ function createNewFolder() {
     // Calling the create new folder method in the new folder class
     new NewFolder().createNewFolder()
 }
+
 
 function TabSwitchInMain(e) {
     // Get the value of the clicked element
@@ -294,6 +299,7 @@ function prevMonth() {
     cal.monthTitle()
     cal.monthDays()
 }
+
 // shoeing calendar
 function showCalender() {
     calendarModal.style.display = "flex";
@@ -301,21 +307,40 @@ function showCalender() {
     cal.monthDays()
 }
 
-function fullDate(e) {
 
-    let month = document.querySelector(".calendarHeader>div h3").textContent
-    let year = document.querySelector(".calendarHeader>div>p").textContent
-    year.toString()
-    console.log(yearSpan, monthSpan, daySpan);
-    let day = e.target.value
-    yearSpan.textContent = `${year}/`
-    monthSpan.textContent = `${month}/`
-    daySpan.textContent = day
+// function full(e) {
+//     const days = document.querySelectorAll(".daysWeek>div")
 
-    calendarModal.style.display = "none"
+//     console.log(calendarModal);
+//     console.log("ok");
+
+//     calendarModal.addEventListener("click", () => {
+//         let lastDayy = new Calendar().lastDay
+//         console.log(lastDayy);
+//         days.forEach((i, index) => {
+//             for (let i = 0; i < array.length; i++) {
+//                 const element = array[i];
+
+//             }
+//             console.log(index);
+//         })
+//     })
 
 
-}
+//     // calendarModal.style.display = "none"
+
+//     // let month = document.querySelector(".calendarHeader>div h3").textContent
+//     // let year = document.querySelector(".calendarHeader>div>p").textContent
+//     // year.toString()
+//     // console.log(yearSpan, monthSpan, daySpan);
+//     // let day = e.target.value
+//     // yearSpan.textContent = `${year}/`
+//     // monthSpan.textContent = `${month}/`
+//     // daySpan.textContent = day
+
+
+
+// }
 // ...........................
 
 // show notes in folder

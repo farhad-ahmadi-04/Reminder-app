@@ -235,6 +235,7 @@ class Calendar {
         this.lastDay = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDate(); //last date of current month
         this.prevLastDay = new Date(this.date.getFullYear(), this.date.getMonth(), 0).getDate(); //last date of prevent month
         this.firstDayIndex = this.date.getDay(); //current day
+        console.log(this.firstDayIndex);
         this.lastDayIndex = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDay(); // last day of current month
         this.nextDays = 7 - this.lastDayIndex + 1 //number of days for next month
         // month
@@ -270,14 +271,14 @@ class Calendar {
         let day = ""
         // for show prevent date
         for (let j = this.firstDayIndex; j > 0; j--) {
-            day = `<div class="prev-date">${this.prevLastDay - j}</div>`
+            day += `<div class="prev-date">${this.prevLastDay - j + 1}</div>`
         }
-        // for show current + dates of the month
+        // fro show current + dates of the month
         for (let i = 1; i < this.lastDay; i++) {
             if (i === new Date().getDate() && this.date.getMonth() === new Date().getMonth()) {
-                day += `<div value="${i}" class="today">${i}</div>`
+                day += `<div class="today">${i}</div>`
             } else {
-                day += `<div value="${i}">${i}</div>`
+                day += `<div>${i}</div>`
             }
         }
         // for show date in next month
@@ -309,13 +310,11 @@ class SetNewFolderInLS {
         let LSFolder = this.loadOfLS()
 
         // 2. Add new Folder
-        LSFolder.push(
-            {
-                folderText: this.NameNewFolder,
-                folderID: this.idRandom,
-                arrayNotes: []
-            }
-        )
+        LSFolder.push({
+            folderText: this.NameNewFolder,
+            folderID: this.idRandom,
+            arrayNotes: []
+        })
         // 3. Save FOLDER in LS
         this.saveNotesInLS(LSFolder)
     }
