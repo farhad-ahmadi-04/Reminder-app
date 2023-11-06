@@ -60,17 +60,22 @@ header {
     background: linear-gradient(top #79797955, #797979);
     color: #464646;
     box-shadow: 0vh 0.4vh 0.3vh 0.2vh #afafaf;
+    width: 19%;
+    text-align: center;
+    overflow-x: hidden;
 }
 
 /* div samt rast header */
 .div-right-header {
     margin-right: 0.2vh;
     position: relative;
+    vertical-align: middle;
 }
 
 /* div samt rast header > (img)*/
-.div-right-header>ul>li>img {
+.div-right-header>ul>li>svg {
     width: 5vh;
+    height: 5vh;
 }
 
 /* menu */
@@ -176,7 +181,7 @@ main {
     position: absolute;
     top: 15%;
     left: 5%;
-
+    z-index: 2;
 }
 
 .newToDo>div>h3 {
@@ -511,6 +516,7 @@ main {
     height: 65vh;
     margin: 0 auto;
     overflow-y: scroll;
+    display: none;
 }
 
 /*........................ footer style .......................... */
