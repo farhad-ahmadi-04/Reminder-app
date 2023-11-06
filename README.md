@@ -1,11 +1,11 @@
 # Reminder-app
 
 ## Contributors
-### Designer
-- Majid Ghashghaei
+  ### Designer
+  - Majid Ghashghaei
   ### Fron-End developer
-- Farhad Ahmadi
-- Mehrdad Jokari
+  - Farhad Ahmadi
+  - Mehrdad Jokari
 ## Usage
 > If you keep forgetting your daily tasks, then this program can be very useful for you
 > This program is for writing down daily tasks and reminding you of them
