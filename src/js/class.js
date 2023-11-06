@@ -232,13 +232,17 @@ class Calendar {
     // constructor
     constructor() {
         this.date = new Date(); //new date
-        this.lastDay = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDate(); //last date of current month
-        console.log(this.lastDay);
-        this.prevLastDay = new Date(this.date.getFullYear(), this.date.getMonth(), 0).getDate(); //last date of prevent month
-        this.firstDayIndex = this.date.getDay(); //current day
-        console.log(this.firstDayIndex);
-        this.lastDayIndex = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDay(); // last day of current month
-        this.nextDays = 7 - this.lastDayIndex + 1 //number of days for next month
+        //last date of current month
+        this.lastDay = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDate();
+        //last date of prevent month
+        this.prevLastDay = new Date(this.date.getFullYear(), this.date.getMonth(), 0).getDate();
+        //current day
+        this.firstDayIndex = new Date(this.date.getFullYear(), this.date.getMonth(), 1).getDay();
+        // last day of current month
+        this.lastDayIndex = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0).getDay();
+        //number of days for next month
+        this.nextDays = 7 - this.lastDayIndex - 1
+
         // month
         this.month = [
             "January",
@@ -256,8 +260,53 @@ class Calendar {
         ];
     }
     // methods
+
+    // show next month
+    nextMonth() {
+        // set new month (next month)
+        this.date.setMonth(this.date.getMonth() + 1)
+        this.renderCalendar()
+
+        // get last date of next month
+        const currentMonthEnd = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
+        // last day of previous month
+        const prevMonthEndd = new Date(this.date.getFullYear(), this.date.getMonth(), 0);
+        // upgrade veribles 
+        this.lastDay = currentMonthEnd.getDate();
+        this.prevLastDay = prevMonthEndd.getDate();
+
+        // get first date of  prvious month
+        const prevMonthStart = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
+        // get last date of previous month
+        const prevMonthEnd = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
+        // upgrade varibles
+        this.prevLastDay = prevMonthEnd.getDate();
+        this.firstDayIndex = prevMonthStart.getDay();
+    }
+    // show previous month
+    prevMonth() {
+        this.date.setMonth(this.date.getMonth() - 1)
+
+        // get fisrt date of previous month
+        const prevMonthStart = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
+        // get last date of previous month
+        const prevMonthEnd = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
+        // upgrade varibles
+        this.prevLastDay = prevMonthEnd.getDate();
+        this.firstDayIndex = prevMonthStart.getDay();
+
+
+        // get last date of next month
+        const currentMonthEnd = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
+        // last date of previous month
+        const prevMonthEndd = new Date(this.date.getFullYear(), this.date.getMonth(), 0);
+        // upgarde varibles
+        this.lastDay = currentMonthEnd.getDate();
+        this.prevLastDay = prevMonthEndd.getDate();
+    }
+
     // show month and date
-    monthTitle() {
+    renderCalendar() {
         const mothHeader = document.querySelector(".calendarHeader>div h3")
         // get month will return the number => search for number in month array
         mothHeader.innerHTML = this.month[this.date.getMonth()]
@@ -265,9 +314,7 @@ class Calendar {
         mothHeader.setAttribute("value", this.date.getMonth())
         // set date
         document.querySelector(".calendarHeader>div p").innerHTML = this.date.getFullYear()
-    }
-    // show date + prevent and next date
-    monthDays() {
+
         const monthDays = document.querySelector(".days");
         let day = ""
         // for show prevent date
@@ -275,7 +322,7 @@ class Calendar {
             day += `<div class="prev-date">${this.prevLastDay - j + 1}</div>`
         }
         // fro show current + dates of the month
-        for (let i = 1; i < this.lastDay; i++) {
+        for (let i = 1; i <= this.lastDay; i++) {
             if (i === new Date().getDate() && this.date.getMonth() === new Date().getMonth()) {
                 day += `<div class="today">${i}</div>`
             } else {
@@ -283,19 +330,13 @@ class Calendar {
             }
         }
         // for show date in next month
-        for (let i = 1; i < this.nextDays; i++) {
+        for (let i = 1; i <= this.nextDays; i++) {
             day += `<div class="next-date">${i}</div>`
-            monthDays.innerHTML = day
         }
+        monthDays.innerHTML = day
+        return day
     }
-    // show next month
-    nextMonth() {
-        this.date.setMonth(this.date.getMonth() + 1)
-    }
-    // show previous month
-    prevMonth() {
-        this.date.setMonth(this.date.getMonth() - 1)
-    }
+
 }
 
 // Folder set in local storage

@@ -294,21 +294,18 @@ function validate(tit, des) {
 // for show next month in calendar
 function nextMonth() {
     cal.nextMonth()
-    cal.monthTitle()
-    cal.monthDays()
+    cal.renderCalendar()
 }
 // for show previuse month in calendar
 function prevMonth() {
     cal.prevMonth()
-    cal.monthTitle()
-    cal.monthDays()
+    cal.renderCalendar()
 }
 
 // shoeing calendar
 function showCalender() {
     calendarModal.style.display = "flex";
-    cal.monthTitle()
-    cal.monthDays()
+    cal.renderCalendar()
 }
 
 
