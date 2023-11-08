@@ -55,6 +55,11 @@ const monthSpan = document.querySelector(".resulteDate>span:nth-of-type(2)")
 const daySpan = document.querySelector(".resulteDate>span:last-of-type")
 let clock = document.querySelector(".clock")
 
+// calendar header (year)
+let calendarYear = document.querySelector(".calendarHeader>div>p")
+// resulte Date
+const resulteDate = document.querySelector(".resulteDate")
+
 
 
 // --event--
@@ -88,8 +93,8 @@ svgAddNoteInFolder.addEventListener("click", addNewNoteInFolder)
 closeModalAddNewNoteInFolder.addEventListener('click', closeModalNewNoteInFolder)
 // days.addEventListener("touchend ", fullDate) // for show date in template
 clock.addEventListener('click', setClock)
-
-// calendarModal.addEventListener("click", full) // for show date in template
+// for show date in template
+// calendarModal.addEventListener("click", full)
 
 
 
@@ -309,11 +314,37 @@ function showCalender() {
 }
 
 
-// function full(e) {
-//     const days = document.querySelectorAll(".daysWeek>div")
 
-//     calendarModal.style.display = "none"
-// }
+
+let days = document.querySelector(".days")
+days.addEventListener("click", full)
+
+let count = 0
+
+function full(e) {
+    count++
+    if (count == 2) {
+        if (e.target.getAttribute("data-id")) {
+            // calendar header (month)
+            let calendarHeader = document.querySelector(".calendarHeader>div>h3")
+            // get user target date
+            let date = parseInt(e.target.getAttribute("data-id"))
+            // get user target month
+            // +1 => becouse in js month strat with 0 and our month start with 1
+            let monthValue = parseInt(calendarHeader.getAttribute("value")) + 1
+            // get user target uear
+            let yearValue = calendarYear.getAttribute("value")
+            // show result
+            resulteDate.innerHTML = `${yearValue}/${monthValue}/${date}`
+            // hide calendar
+            calendarModal.style.display = 'none'
+        }
+        count = 0
+    }
+
+}
+
+
 
 // --------------------- clock --------------------------
 function setClock(e) {

@@ -312,8 +312,10 @@ class Calendar {
         mothHeader.innerHTML = this.month[this.date.getMonth()]
         // set value for month
         mothHeader.setAttribute("value", this.date.getMonth())
-        // set date
+        // set date (year)
         document.querySelector(".calendarHeader>div p").innerHTML = this.date.getFullYear()
+        // set value for date (year)
+        document.querySelector(".calendarHeader>div p").setAttribute("value", this.date.getFullYear())
 
         const monthDays = document.querySelector(".days");
         let day = ""
@@ -324,9 +326,9 @@ class Calendar {
         // fro show current + dates of the month
         for (let i = 1; i <= this.lastDay; i++) {
             if (i === new Date().getDate() && this.date.getMonth() === new Date().getMonth()) {
-                day += `<div class="today">${i}</div>`
+                day += `<div data-id="${i}"     class="today">${i}</div>`
             } else {
-                day += `<div>${i}</div>`
+                day += `<div data-id="${i}">${i}</div>`
             }
         }
         // for show date in next month
