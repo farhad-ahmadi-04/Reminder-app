@@ -59,6 +59,8 @@ let clock = document.querySelector(".clock")
 let calendarYear = document.querySelector(".calendarHeader>div>p")
 // resulte Date
 const resulteDate = document.querySelector(".resulteDate")
+// days in calendar
+let days = document.querySelector(".days")
 
 
 
@@ -91,10 +93,10 @@ containerAllFolders.addEventListener('click', showNoteInFolder)
 svgAddNoteInFolder.addEventListener("click", addNewNoteInFolder)
 // close modal new note in folder
 closeModalAddNewNoteInFolder.addEventListener('click', closeModalNewNoteInFolder)
-// days.addEventListener("touchend ", fullDate) // for show date in template
+
 clock.addEventListener('click', setClock)
-// for show date in template
-// calendarModal.addEventListener("click", full)
+// each days user click
+days.addEventListener("click", full)
 
 
 
@@ -259,28 +261,35 @@ function svgPosition(num) {
 
 // save note to DOM
 function saveNote() {
+    // title text in input (new to do modal)
     const title = document.querySelector(".newToDo>div:nth-of-type(2)>input").value;
+    // description text in texterea (new to do moodal)
     const des = document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value;
+    // create random id => each note hase diffrent id
     let noteId = (Math.random() * 1000000).toFixed()
-
+    // data in resulteDate div (new to do modal)
+    let date = document.querySelector(".resulteDate")
+    // chick validaition
     if (validate(title, des)) {
         // create obj from Note class
-        let saveInDom = new Note(title, des, noteId);
+        let saveInDom = new Note(title, des, noteId, date.textContent);
         const saveInLs = new NoteLs()
         // use obj for add note to DOM + LS
         saveInDom.addNewNote()
 
-        saveInLs.addNoteInLS(title, noteId, des)
-        // change display of modal
+        saveInLs.addNoteInLS(title, noteId, des, date.textContent)
+        // change style in new to do modal
         newToDo.style.display = 'none';
         document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
         document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value = "";
+        date.textContent = "----/--/--"
     } else {
         alert("RIP...")
     }
 }
 // if user cancel the save note 
 function cancelNote() {
+    // change style in new to do modal
     newToDo.style.display = 'none';
     document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
     document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value = "";
@@ -316,11 +325,12 @@ function showCalender() {
 
 
 
-let days = document.querySelector(".days")
-days.addEventListener("click", full)
+
+
 
 let count = 0
 
+// 
 function full(e) {
     count++
     if (count == 2) {
@@ -330,9 +340,9 @@ function full(e) {
             // get user target date
             let date = parseInt(e.target.getAttribute("data-id"))
             // get user target month
-            // +1 => becouse in js month strat with 0 and our month start with 1
+            // +1 => becouse in js month start with 0 and our month start with 1
             let monthValue = parseInt(calendarHeader.getAttribute("value")) + 1
-            // get user target uear
+            // get user target year
             let yearValue = calendarYear.getAttribute("value")
             // show result
             resulteDate.innerHTML = `${yearValue}/${monthValue}/${date}`
@@ -341,7 +351,6 @@ function full(e) {
         }
         count = 0
     }
-
 }
 
 

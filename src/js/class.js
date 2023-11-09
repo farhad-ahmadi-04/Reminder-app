@@ -36,7 +36,7 @@ class NoteLs {
     // paramt : data id of note
     // paramt : note description
     // output : add note to DOm + LS
-    addNoteInLS(noteTitle, noteID, noteDes) {
+    addNoteInLS(noteTitle, noteID, noteDes, date) {
         // 1 load LS note 
         let LSNotes = this.laodOfLS()
 
@@ -44,7 +44,8 @@ class NoteLs {
         LSNotes.push({
             ID: noteID,
             noteText: noteTitle,
-            description: noteDes
+            description: noteDes,
+            date: date
         })
         // 3 save notes in LS
         this.saveNoteInLS(LSNotes)
@@ -74,11 +75,12 @@ class Note {
 
     // constructor
 
-    constructor(title, description, noteID) {
+    constructor(title, description, noteID, date) {
         this.title = title;
         this.description = description;
         this.noteID = noteID;
         this.noteLs = new NoteLs()
+        this.date = date
     }
     // methods
 
@@ -88,7 +90,7 @@ class Note {
     // paramt2 : note data ID
     // paramt3 : note description
     // return : template of note
-    noteTemplate(notwTitle, noteID, noteText) {
+    noteTemplate(notwTitle, noteID, noteText, date) {
         return `
         <li data-id='${noteID}' class="noteLi">
             <div class="noteHeader">
@@ -99,7 +101,7 @@ class Note {
                 <p>${noteText}</p>
             </div>
             <div class="dateTime">
-                <div>2023/10/04</div>
+                <div>${date}</div>
                 <div>22:30</div>
             </div>
         </li>
@@ -112,7 +114,7 @@ class Note {
         // adding them to DOM
         laodTime.forEach(
             function (eachNote) {
-                new Note().addNoteToNoteList(eachNote.noteText, eachNote.ID, eachNote.description)
+                new Note().addNoteToNoteList(eachNote.noteText, eachNote.ID, eachNote.description, eachNote.date)
             }
         )
     }
@@ -121,14 +123,14 @@ class Note {
     // paramt : note title
     // paramt2 : note data ID
     // paramt3 : note description
-    addNoteToNoteList(noteTitle, noteID, noteText) {
+    addNoteToNoteList(noteTitle, noteID, noteText, date) {
         mainUl
-            .insertAdjacentHTML('afterbegin', this.noteTemplate(noteTitle, noteID, noteText))
+            .insertAdjacentHTML('afterbegin', this.noteTemplate(noteTitle, noteID, noteText, date))
     }
-    // add note to DOM + LS
+    // add note to DOM
     addNewNote() {
         // for add note to DOM
-        this.addNoteToNoteList(this.title, this.noteID, this.description)
+        this.addNoteToNoteList(this.title, this.noteID, this.description, this.date)
 
     }
 
