@@ -442,3 +442,32 @@ class Clock {
         this.selctors().placeMinutes.remove()
     }
 }
+
+
+class ErrorMsg {
+    // constructor
+    constructor(msg, pos) {
+        this.msg = msg
+        this.pos = pos
+    }
+    // methods
+    // template of error massage
+    template() {
+        return `
+        <div class="error">
+            <div>${this.msg}</div>
+            <div class="divImg">
+                <img src="images/icons/error.svg" alt="">
+            </div>
+        </div>`
+    }
+    // template position
+    positionTemplate() {
+        this.pos.insertAdjacentHTML("afterbegin", this.template())
+        setTimeout(() => {
+            document.querySelector(".error").remove()
+
+        }, 5000);
+    }
+
+}

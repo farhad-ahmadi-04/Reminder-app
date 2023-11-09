@@ -284,7 +284,8 @@ function saveNote() {
         document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value = "";
         date.textContent = "----/--/--"
     } else {
-        alert("RIP...")
+        let errorMessage = new ErrorMsg("Check the title and description", newToDo)
+        errorMessage.positionTemplate()
     }
 }
 // if user cancel the save note 
