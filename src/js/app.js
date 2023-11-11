@@ -40,7 +40,7 @@ let activeNow = document.querySelector("#activeNow")
 // modal (create new note in folder)
 let activeNowToDo = document.querySelector('#activeNow >.newToDo')
 // div close modal (create new note in folder)
-let closeModalAddNewNoteInFolder = document.querySelector('#activeNow .footerNewToDo #lcose')
+let closeModalAddNewNoteInFolder = document.querySelector('#activeNow .footerNewToDo #close')
 
 let saveModalAddNewNoteInFolder = document.querySelector('#activeNow .footerNewToDo #save')
 let folder = document.querySelector('.folder')
@@ -90,13 +90,15 @@ document.addEventListener('DOMContentLoaded', new SetNewFolderInLS().loadNotesIn
 //  Switch to the notes screen in the folder
 containerAllFolders.addEventListener('click', showNoteInFolder)
 // show modal create new not in folder
-svgAddNoteInFolder.addEventListener("click", addNewNoteInFolder)
+svgAddNoteInFolder.addEventListener("click", showModalNewNoteInFolder)
 // close modal new note in folder
 closeModalAddNewNoteInFolder.addEventListener('click', closeModalNewNoteInFolder)
 
 clock.addEventListener('click', setClock)
 // each days user click
 days.addEventListener("click", full)
+// calendarModal.addEventListener("click", full) // for show date in template
+saveModalAddNewNoteInFolder.addEventListener('click', addNewNoteInFolder)
 
 
 
@@ -177,7 +179,7 @@ function addTemplate() {
 }
 
 // show template add new note in folder
-function addNewNoteInFolder() {
+function showModalNewNoteInFolder() {
     activeNowToDo.style.display = 'flex'
 }
 
@@ -269,24 +271,31 @@ function saveNote() {
     let noteId = (Math.random() * 1000000).toFixed()
     // data in resulteDate div (new to do modal)
     let date = document.querySelector(".resulteDate")
-    // chick validaition
-    if (validate(title, des)) {
-        // create obj from Note class
-        let saveInDom = new Note(title, des, noteId, date.textContent);
-        const saveInLs = new NoteLs()
-        // use obj for add note to DOM + LS
-        saveInDom.addNewNote()
 
-        saveInLs.addNoteInLS(title, noteId, des, date.textContent)
-        // change style in new to do modal
-        newToDo.style.display = 'none';
-        document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
-        document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value = "";
-        date.textContent = "----/--/--"
-    } else {
+    if (!validate(title, des)) {
         let errorMessage = new ErrorMsg("Check the title and description", newToDo)
         errorMessage.positionTemplate()
+    } else {
+        if (!checkTimeNewNode(document.querySelector('.selectedHour').textContent, document.querySelector('.SelectMinutes').textContent)) {
+            let errorMessage = new ErrorMsg("Check the time", newToDo)
+            errorMessage.positionTemplate()
+        } else {
+            // chick validaition
+            // create obj from Note class
+            let saveInDom = new Note(title, des, noteId, date.textContent);
+            const saveInLs = new NoteLs()
+            // use obj for add note to DOM + LS
+            saveInDom.addNewNote()
+
+            saveInLs.addNoteInLS(title, noteId, des, date.textContent)
+            // change style in new to do modal
+            newToDo.style.display = 'none';
+            document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
+            document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value = "";
+            date.textContent = "----/--/--"
+        }
     }
+
 }
 // if user cancel the save note 
 function cancelNote() {
@@ -304,6 +313,58 @@ function validate(tit, des) {
         status = true;
     }
     return status
+}
+
+function checkTimeNewNode(e, x) {
+    let status = false
+    if (e < getNewYears().hour) {
+        alert('ساعت آینده را وارد کنید')
+        status = false
+    } else if (e == getNewYears().hour) {
+        if (x < getNewYears().minutes) {
+            alert('دقیقه آینده را وارد کنید!!!')
+            status = false
+        } else {
+            // alert('dorostrh');
+            status = true
+        }
+    } else {
+        status = true
+    }
+    return status
+}
+
+// Get the current year and convert it to type number
+function getNewYears() {
+    // saet
+    let hour = new Date().getHours()
+    // daghigeh
+    let minutes = new Date().getMinutes()
+    console.log(hour);
+    console.log(minutes);
+
+    return {
+        hour,
+        minutes
+    }
+}
+
+
+// Convert string to number
+function toNumber(info) {
+    // To recognize the language of numbers, this array is created
+    persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
+        arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g]
+
+    // Convert Persian and Arabic numbers to English
+    for (let i = 0; i < 10; i++) {
+        info = info.replace(persianNumbers[i], i).replace(arabicNumbers[i], i)
+    }
+
+    // tabdil type string be number
+    info = parseInt(info)
+    // Returns a number by typing a number
+    return info
 }
 
 // for show next month in calendar
@@ -389,9 +450,6 @@ function setClock(e) {
 //     // yearSpan.textContent = `${year}/`
 //     // monthSpan.textContent = `${month}/`
 //     // daySpan.textContent = day
-
-
-
 // }
 // ...........................
 
@@ -403,12 +461,14 @@ function showNoteInFolder(e) {
         addBtnNewHeader(e.target.querySelector('h3').textContent, e.target.classList[0])
         // show page notes in folder
         changeSectionInMain(4)
+        new AddNoteInFolder().getIdNotesInFolder(e.target.classList[0])
         // If you click on the title folder
     } else if (e.target.classList.contains('h3')) {
         //set the title folder
         addBtnNewHeader(e.target.textContent, e.target.parentElement.parentElement.classList[0])
         // show page notes in folder
         changeSectionInMain(4)
+        new AddNoteInFolder().getIdNotesInFolder(e.target.parentElement.parentElement.classList[0])
     }
 
     return e.target.classList
@@ -435,3 +495,26 @@ function removeBtnHeader(info) {
         document.querySelector('#liActiveNow').remove()
     }
 }
+
+
+// --------------------  ADD NEW NOTE IN FOLDER ---------------------
+
+function addNewNoteInFolder() {
+    let x = document.querySelector('#activeNow #tilte').value
+    let y = document.querySelector('#activeNow #des').value
+    let noteId = (Math.random() * 1000000).toFixed()
+    new AddNoteInFolder(x, y, noteId).addNoteInDom()
+}
+
+
+// function getIdNotesInFolder(e) {
+//     let x = JSON.parse(localStorage.getItem('folders'))
+
+//     x.forEach(
+//         (eachFolder, indexFolder) => {
+//             if (e == eachFolder.folderID) {
+//                 console.log(x[indexFolder].arrayNotes);
+//             }
+//         }
+//     );
+// }

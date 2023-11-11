@@ -3,6 +3,8 @@ const mainUl = document.querySelector("#allSection>.notes>ul")
 // select section all folders
 let containerAllFolders = document.querySelector("#containerAllFolders")
 
+let PlacementOfNotes = document.querySelector('#PlacementOfNotes')
+
 
 
 // classes
@@ -469,5 +471,58 @@ class ErrorMsg {
 
         }, 5000);
     }
+}
 
+// dar hal tamir 🤠🛠️
+class AddNoteInFolder {
+    constructor(tit, des, IDR) {
+        this.tit = tit,
+            this.des = des,
+            this.IDR = IDR
+    }
+
+    template(IDR, tit, des) {
+        return `
+        <li data-id='${IDR}' class="noteLi">
+            <div class="noteHeader">
+                <h3>${tit}</h3>
+                <div><img src="../../images/icons/Vector.svg" alt=""></div>
+            </div>
+            <div class="noteMain">
+                <p>${des}</p>
+            </div>
+            <div class="dateTime">
+                <div>2023/10/04</div>
+                <div>22:30</div>
+            </div>
+        </li>
+        `
+    }
+
+    addNoteInDom() {
+        PlacementOfNotes.insertAdjacentHTML('beforeend', this.template(this.IDR, this.tit, this.des))
+        getIdNotesInFolder()
+    }
+
+    getIdNotesInFolder(e) {
+        let x = JSON.parse(localStorage.getItem('folders'))
+
+        x.forEach(
+            (eachFolder, indexFolder) => {
+                if (e == eachFolder.folderID) {
+                    x[indexFolder].arrayNotes.push(
+                        {
+                            tit: this.tit,
+                            des: this.des,
+                            noteID: this.IDR
+                        }
+                    )
+                }
+            }
+        );
+        // JSON.stringify(localStorage.setItem('folders', x))
+        console.log(this.tit);
+        console.log(this.des);
+        console.log(this.IDR);
+    }
 }

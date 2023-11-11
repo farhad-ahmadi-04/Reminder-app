@@ -10,7 +10,6 @@ body {
     font-size: 5vw;
     font-size: calc(20px + 1vh);
     font-family: inder;
-    height: 85vh;
 }
 
 /* hame li ha list-style ha shon none beshavad */
@@ -54,15 +53,18 @@ header {
 .div-left-header ul li {
     padding: 0.7vh;
     margin: 0.4vh;
-    font-size: 2vh;
+    font-size: 1.45vh;
     font-weight: bold;
     border-radius: 1.5vh;
     background: linear-gradient(top #79797955, #797979);
     color: #464646;
     box-shadow: 0vh 0.4vh 0.3vh 0.2vh #afafaf;
     width: 19%;
+    display: flex;
     text-align: center;
     overflow-x: hidden;
+    align-items: center;
+    justify-content: center;
 }
 
 /* div samt rast header */
@@ -394,7 +396,6 @@ main {
 
 .folderSection {
     width: 90%;
-    height: 66vh;
     margin: 0 auto;
     overflow-y: scroll;
     display: none;
@@ -477,6 +478,7 @@ main {
 
 #containerAllFolders {
     width: 100%;
+    height: 85vh;
 }
 
 #containerAllFolders>div {
@@ -517,6 +519,15 @@ main {
     margin: 0 auto;
     overflow-y: scroll;
     display: none;
+}
+
+/* ................ activeNow..................... */
+
+#activeNow {
+    display: none;
+    height: 85vh;
+    width: 100%;
+    margin: 0;
 }
 
 /*........................ footer style .......................... */
@@ -580,4 +591,27 @@ footer input {
 #svgAddNoteInFolder {
     width: 9.5vh;
     display: none;
+}
+
+/* --------------------- active now ....................... */
+
+#PlacementOfNotes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    width: 80%;
+    margin: 0 auto;
+}
+
+#PlacementOfNotes li {
+    width: 44%;
+    height: 14vh;
+    margin: 0.3vh;
+}
+
+#PlacementOfNotes .noteMain p {
+    width: 90%;
+    margin: 0 auto;
+    overflow: hidden;
+    height: 5vh;
 }
