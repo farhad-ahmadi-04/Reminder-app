@@ -233,3 +233,47 @@
 }
 
 /* error massage end */
+
+/* alarm */
+.alarmtemplate {
+    width: 100%;
+    color: #595959;
+    font-size: 2rem;
+    z-index: 2;
+    position: absolute;
+    top: -100px;
+    align-items: center;
+    animation: alarmStart 1s linear forwards;
+}
+
+.alarmtemplate button {
+    width: 100%;
+    color: #DADADA;
+    background-color: #6A738A;
+    padding: 10px;
+    font-size: 2rem;
+}
+
+.hideAlarm {
+    animation: alarmFinnish 1s linear forwards;
+}
+
+@keyframes alarmStart {
+    from {
+        top: -100px;
+    }
+
+    to {
+        top: 0px;
+    }
+}
+
+@keyframes alarmFinnish {
+    from {
+        top: 0px;
+    }
+
+    to {
+        top: 100px;
+    }
+}

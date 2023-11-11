@@ -47,7 +47,8 @@ class NoteLs {
             ID: noteID,
             noteText: noteTitle,
             description: noteDes,
-            date: date
+            date: date,
+            createDate: `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() +1}/${new Calendar().date.getDate()}`
         })
         // 3 save notes in LS
         this.saveNoteInLS(LSNotes)
@@ -510,13 +511,11 @@ class AddNoteInFolder {
         x.forEach(
             (eachFolder, indexFolder) => {
                 if (e == eachFolder.folderID) {
-                    x[indexFolder].arrayNotes.push(
-                        {
-                            tit: this.tit,
-                            des: this.des,
-                            noteID: this.IDR
-                        }
-                    )
+                    x[indexFolder].arrayNotes.push({
+                        tit: this.tit,
+                        des: this.des,
+                        noteID: this.IDR
+                    })
                 }
             }
         );
@@ -524,5 +523,83 @@ class AddNoteInFolder {
         console.log(this.tit);
         console.log(this.des);
         console.log(this.IDR);
+    }
+}
+
+class Alarm {
+    // construction
+    // paramet01 : user target full date (year/month/day)
+    // paramet02 : user target time (hour, minute)
+    // paramet03 : type of alarm (user target like daily, weekly, etc...)
+    constructor(date, time, alarmType, noteId) {
+        this.date = date;
+        this.time = time
+        this.alarmType = alarmType
+        this.noteId = noteId
+    }
+    // methods
+    // get date and time => change to number and put them to obj for use it easily
+    // return : obj
+    dateAlarm() {
+        let year = parseInt(this.date.slice(0, 4))
+        let month = parseInt(this.date.slice(5, 7))
+        let day = parseInt(this.date.slice(8, 10))
+        return {
+            year: year,
+            month: month,
+            day: day,
+        }
+    }
+    // get current date - user target date = date we have
+    // return : extra date we have (object)
+    extraDate() {
+        // current year
+        let currentYear = new Date().getFullYear()
+        // current month
+        let currentMonth = new Date().getMonth() + 1
+        // current day
+        let currentDay = new Date().getDate()
+        // target year - current year = year for change it to seconds
+        let targetYear = this.dateAlarm().year - currentYear
+        // target month - current month = month for change it to seconds
+        let targetMonth = this.dateAlarm().month - currentMonth
+        // target day - current day = day for change it to seconds
+        let targetDay = this.dateAlarm().day - currentDay
+
+        return {
+            targetYear: targetYear,
+            targetMonth: targetMonth,
+            targetDay: targetDay
+        }
+    }
+    // change extra date to second
+    // return date second units
+    dateFormula() {
+        // 1year = 31536000 seconds
+        let yearToSecond = this.extraDate().targetYear * 31536000
+        // 1month = 2628000 seconds
+        let monthToSecond = this.extraDate().targetMonth * 2628000
+        //  1day = 86400 seconds
+        let dayToSecond = this.extraDate().targetDay * 86400
+        // formula for set alarm
+        let userTargetDate = (yearToSecond) + (monthToSecond) + (dayToSecond)
+        return userTargetDate
+    }
+
+    // pass targetTime to this function and after the user target time set alarm
+    setAlarm() {
+        let alarm = setTimeout(() => {
+            document.querySelector("body").insertAdjacentHTML("afterbegin", this.alarmTemplate())
+        }, this.dateFormula() * 1000);
+    }
+    // template of alarm
+    alarmTemplate() {
+        return `
+        <div class="alarmtemplate">
+            <div class="text">${this.noteId}</div>
+            <div>
+                <button class="alarmStop">undrestood</button>
+            </div>
+        </div>`
     }
 }
