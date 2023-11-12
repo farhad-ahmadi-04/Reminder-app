@@ -46,13 +46,6 @@ let saveModalAddNewNoteInFolder = document.querySelector('#activeNow .footerNewT
 let folder = document.querySelector('.folder')
 const iconAddNewNoteInAlarm = document.querySelector('#iconAddNewNoteInAlarm')
 
-
-// years span in date div
-const yearSpan = document.querySelector(".resulteDate>span:first-of-type")
-// month span in date div
-const monthSpan = document.querySelector(".resulteDate>span:nth-of-type(2)")
-// day span in date div
-const daySpan = document.querySelector(".resulteDate>span:last-of-type")
 let clock = document.querySelector(".clock")
 
 // calendar header (year)
@@ -238,6 +231,8 @@ function setDate() {
         dateButton.style = "background: rgba(59, 238, 44, 0.56);"
         // show date div
         date.style.display = "flex"
+        // default date => current date
+        resulteDate.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth()+1}/${new Calendar().date.getDate()}`
         // change status of date div
         isDivVisible = true;
     } else {
@@ -286,13 +281,18 @@ function saveNote() {
             const saveInLs = new NoteLs()
             // use obj for add note to DOM + LS
             saveInDom.addNewNote()
+            // save note in local storage
 
             saveInLs.addNoteInLS(title, noteId, des, date.textContent)
+            // show alarm when user target date is arive
+            let alarm = new Alarm(date.textContent, noteId)
+            alarm.setAlarm()
             // change style in new to do modal
             newToDo.style.display = 'none';
             document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
             document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value = "";
-            date.textContent = "----/--/--"
+            // defualt set current date for notes
+            resulteDate.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth()+1}/${new Calendar().date.getDate()}`
         }
     }
 
@@ -303,6 +303,9 @@ function cancelNote() {
     newToDo.style.display = 'none';
     document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
     document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value = "";
+    // data in resulteDate div (new to do modal)
+    let date = document.querySelector(".resulteDate")
+    date.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}`
 }
 // validation for add note
 function validate(tit, des) {
@@ -340,8 +343,6 @@ function getNewYears() {
     let hour = new Date().getHours()
     // daghigeh
     let minutes = new Date().getMinutes()
-    console.log(hour);
-    console.log(minutes);
 
     return {
         hour,
@@ -406,12 +407,33 @@ function full(e) {
             let monthValue = parseInt(calendarHeader.getAttribute("value")) + 1
             // get user target year
             let yearValue = calendarYear.getAttribute("value")
-            // show result
-            resulteDate.innerHTML = `${yearValue}/${monthValue}/${date}`
-            // hide calendar
-            calendarModal.style.display = 'none'
+            // checking condition of calendar
+            if (calendarValidate(yearValue, monthValue, date)) {
+                // show result
+                resulteDate.innerHTML = `${yearValue}/${monthValue}/${date}`
+                // hide calendar
+                calendarModal.style.display = 'none'
+            } else {
+                calendarModal.style.display = 'flex'
+            }
         }
         count = 0
+    }
+}
+
+function calendarValidate(yearValue, monthValue, date) {
+    // first check the year => if target year is less than current year, then calendar does not send value
+    if (yearValue < new Date().getFullYear()) {
+        return false;
+        // secends must check the month => if target month is less than current month, then calendar does not send value
+    } else if (monthValue < new Date().getMonth() + 1) {
+        return false;
+        // finaly must check the date => if target date is less than current date, then calendar does not send value
+    } else if (date < new Date().getDate()) {
+        return false;
+        // but if all the conditions are true, so calendar send the value and change display to "none"
+    } else {
+        return true;
     }
 }
 
