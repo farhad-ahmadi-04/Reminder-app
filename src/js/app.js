@@ -461,17 +461,15 @@ function showNoteInFolder(e) {
         addBtnNewHeader(e.target.querySelector('h3').textContent, e.target.classList[0])
         // show page notes in folder
         changeSectionInMain(4)
-        new AddNoteInFolder().getIdNotesInFolder(e.target.classList[0])
+        new ShowNoteInFolderByLs(e.target.classList[0]).getNotesInLs()
         // If you click on the title folder
     } else if (e.target.classList.contains('h3')) {
         //set the title folder
         addBtnNewHeader(e.target.textContent, e.target.parentElement.parentElement.classList[0])
         // show page notes in folder
         changeSectionInMain(4)
-        new AddNoteInFolder().getIdNotesInFolder(e.target.parentElement.parentElement.classList[0])
+        new ShowNoteInFolderByLs(e.target.parentElement.parentElement.classList[0]).getNotesInLs()
     }
-
-    return e.target.classList
 }
 
 // Description in removeBtnHeader function
@@ -503,18 +501,5 @@ function addNewNoteInFolder() {
     let x = document.querySelector('#activeNow #tilte').value
     let y = document.querySelector('#activeNow #des').value
     let noteId = (Math.random() * 1000000).toFixed()
-    new AddNoteInFolder(x, y, noteId).addNoteInDom()
+    new AddNoteInFolder().addNoteInDom(document.querySelector('#liActiveNow').classList, noteId, x, y)
 }
-
-
-// function getIdNotesInFolder(e) {
-//     let x = JSON.parse(localStorage.getItem('folders'))
-
-//     x.forEach(
-//         (eachFolder, indexFolder) => {
-//             if (e == eachFolder.folderID) {
-//                 console.log(x[indexFolder].arrayNotes);
-//             }
-//         }
-//     );
-// }

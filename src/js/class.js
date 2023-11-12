@@ -475,11 +475,6 @@ class ErrorMsg {
 
 // dar hal tamir 🤠🛠️
 class AddNoteInFolder {
-    constructor(tit, des, IDR) {
-        this.tit = tit,
-            this.des = des,
-            this.IDR = IDR
-    }
 
     template(IDR, tit, des) {
         return `
@@ -499,12 +494,12 @@ class AddNoteInFolder {
         `
     }
 
-    addNoteInDom() {
-        PlacementOfNotes.insertAdjacentHTML('beforeend', this.template(this.IDR, this.tit, this.des))
-        getIdNotesInFolder()
+    addNoteInDom(idFolder, IDR, tit, des) {
+        PlacementOfNotes.insertAdjacentHTML('beforeend', this.template(IDR, tit, des))
+        this.getIdNotesInFolder(idFolder, IDR, tit, des)
     }
 
-    getIdNotesInFolder(e) {
+    getIdNotesInFolder(e, IDR, tit, des) {
         let x = JSON.parse(localStorage.getItem('folders'))
 
         x.forEach(
@@ -512,17 +507,49 @@ class AddNoteInFolder {
                 if (e == eachFolder.folderID) {
                     x[indexFolder].arrayNotes.push(
                         {
-                            tit: this.tit,
-                            des: this.des,
-                            noteID: this.IDR
+                            noteID: IDR,
+                            tit: tit,
+                            des: des
                         }
                     )
+                    console.log(x[indexFolder]);
+                    console.log(IDR);
+                    console.log(tit);
+                    console.log(des);
                 }
             }
         );
-        // JSON.stringify(localStorage.setItem('folders', x))
-        console.log(this.tit);
-        console.log(this.des);
-        console.log(this.IDR);
+        x = JSON.stringify(x)
+        localStorage.setItem('folders', x)
+    }
+}
+// /////////////////////////////////////////////
+class ShowNoteInFolderByLs {
+    constructor(idFolder) {
+        this.idFolder = idFolder
+    }
+
+    // removeNoteInSection() {
+    //     console.log('asd');
+    //     this.getNotesInLs()
+    // }
+
+
+    getNotesInLs() {
+        document.querySelector('#activeNow #PlacementOfNotes').innerHTML = ' '
+        console.log(PlacementOfNotes);
+        let lsNotes = localStorage.getItem('folders')
+        lsNotes = JSON.parse(lsNotes)
+
+        lsNotes.forEach(
+            (eachFolder, indexFolder) => {
+                if (this.idFolder == eachFolder.folderID) {
+                    for (let i = 0; i < lsNotes[indexFolder].arrayNotes.length; i++) {
+                        console.log(lsNotes[indexFolder].arrayNotes[i]);
+                        PlacementOfNotes.insertAdjacentHTML('beforebegin', new AddNoteInFolder().template())
+                    }
+                }
+            }
+        );
     }
 }
