@@ -232,7 +232,7 @@ function setDate() {
         // show date div
         date.style.display = "flex"
         // default date => current date
-        resulteDate.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth()+1}/${new Calendar().date.getDate()}`
+        resulteDate.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}`
         // change status of date div
         isDivVisible = true;
     } else {
@@ -292,7 +292,7 @@ function saveNote() {
             document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
             document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value = "";
             // defualt set current date for notes
-            resulteDate.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth()+1}/${new Calendar().date.getDate()}`
+            resulteDate.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}`
         }
     }
 
@@ -524,4 +524,5 @@ function addNewNoteInFolder() {
     let y = document.querySelector('#activeNow #des').value
     let noteId = (Math.random() * 1000000).toFixed()
     new AddNoteInFolder().addNoteInDom(document.querySelector('#liActiveNow').classList, noteId, x, y)
+    closeModalNewNoteInFolder()
 }

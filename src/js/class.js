@@ -48,7 +48,7 @@ class NoteLs {
             noteText: noteTitle,
             description: noteDes,
             date: date,
-            createDate: `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() +1}/${new Calendar().date.getDate()}`
+            createDate: `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}`
         })
         // 3 save notes in LS
         this.saveNoteInLS(LSNotes)
@@ -474,7 +474,6 @@ class ErrorMsg {
     }
 }
 
-// dar hal tamir 🤠🛠️
 class AddNoteInFolder {
 
     template(IDR, tit, des) {
@@ -496,7 +495,7 @@ class AddNoteInFolder {
     }
 
     addNoteInDom(idFolder, IDR, tit, des) {
-        PlacementOfNotes.insertAdjacentHTML('beforeend', this.template(IDR, tit, des))
+        PlacementOfNotes.insertAdjacentHTML('afterbegin', this.template(IDR, tit, des))
         this.getIdNotesInFolder(idFolder, IDR, tit, des)
     }
 
@@ -528,15 +527,8 @@ class ShowNoteInFolderByLs {
         this.idFolder = idFolder
     }
 
-    // removeNoteInSection() {
-    //     console.log('asd');
-    //     this.getNotesInLs()
-    // }
-
-
     getNotesInLs() {
-        document.querySelector('#activeNow #PlacementOfNotes').innerHTML = ' '
-        console.log(PlacementOfNotes);
+        PlacementOfNotes.innerHTML = ' '
         let lsNotes = localStorage.getItem('folders')
         lsNotes = JSON.parse(lsNotes)
 
@@ -544,8 +536,7 @@ class ShowNoteInFolderByLs {
             (eachFolder, indexFolder) => {
                 if (this.idFolder == eachFolder.folderID) {
                     for (let i = 0; i < lsNotes[indexFolder].arrayNotes.length; i++) {
-                        console.log(lsNotes[indexFolder].arrayNotes[i]);
-                        PlacementOfNotes.insertAdjacentHTML('beforebegin', new AddNoteInFolder().template())
+                        PlacementOfNotes.insertAdjacentHTML('afterbegin', new AddNoteInFolder().template(lsNotes[indexFolder].arrayNotes[i].noteID, lsNotes[indexFolder].arrayNotes[i].tit, lsNotes[indexFolder].arrayNotes[i].des))
                     }
                 }
             }
