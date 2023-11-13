@@ -197,19 +197,17 @@ class NewFolder {
     idRandom() {
         return (Math.random() * 10000000).toFixed()
     }
-
     // Create and display folders in Dom
     addNewFolderInDom(info, IdRandom) {
         let NewFolderTemplate = `
         <div class="${IdRandom} folder">
-            <div>
-                <h3 class="h3">${info}</h3>
-            </div>
-            <div>
-                <span>0, File</span>
-                <img src="images/icons/folder.svg" alt="">
-                <img src="images/icons/setting.svg" alt="">
-            </div>
+        <div>
+        <h3 class="h3">${info}</h3>
+        </div>
+        <div>
+        <span><span class="lengthNoteInFolder">${this.getLengthNoteInFolder(IdRandom)}</span>, File</span>
+        <img src="images/icons/folder.svg" alt="">
+        </div>
         </div>
         `
         return NewFolderTemplate
@@ -217,9 +215,25 @@ class NewFolder {
 
     // add note in noteList
     addNoteInList(noteText, noteID) {
+        let info = JSON.parse(localStorage.getItem('folders'))
+
         containerAllFolders.insertAdjacentHTML('afterbegin', this.addNewFolderInDom(noteText, noteID))
+
+        info = JSON.stringify(info)
+        localStorage.setItem('folders', info)
+
     }
 
+    getLengthNoteInFolder(e) {
+        let LSFolder = JSON.parse(localStorage.getItem('folders'))
+        let info = 0
+        LSFolder.forEach((eachFolder, indexFolder) => {
+            if (e == eachFolder.folderID) {
+                info = LSFolder[indexFolder].arrayNotes.length
+            }
+        });
+        return info
+    }
     // Display the New Folder modal input error
     error(info) {
         let newError = `<p class="errorModalNewFolder">${info}</p>`
@@ -500,25 +514,21 @@ class AddNoteInFolder {
     }
 
     getIdNotesInFolder(e, IDR, tit, des) {
-        let x = JSON.parse(localStorage.getItem('folders'))
+        let LSFolder = JSON.parse(localStorage.getItem('folders'))
 
-        x.forEach(
+        LSFolder.forEach(
             (eachFolder, indexFolder) => {
                 if (e == eachFolder.folderID) {
-                    x[indexFolder].arrayNotes.push({
+                    LSFolder[indexFolder].arrayNotes.push({
                         noteID: IDR,
                         tit: tit,
                         des: des
                     })
-                    console.log(x[indexFolder]);
-                    console.log(IDR);
-                    console.log(tit);
-                    console.log(des);
                 }
             }
         );
-        x = JSON.stringify(x)
-        localStorage.setItem('folders', x)
+        LSFolder = JSON.stringify(LSFolder)
+        localStorage.setItem('folders', LSFolder)
     }
 }
 // /////////////////////////////////////////////

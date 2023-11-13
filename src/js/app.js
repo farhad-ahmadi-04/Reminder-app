@@ -158,10 +158,10 @@ function changeSectionInMain(info) {
 
 // Delete all main sections
 function removeSection() {
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 3; i++) {
         // get all section in main
-        let x = document.querySelectorAll('main section')[i]
-        x.style.display = 'none'
+        let info = document.querySelectorAll('main section')[i]
+        info.style.display = 'none'
     }
 }
 
@@ -582,9 +582,9 @@ function removeBtnHeader(info) {
 // --------------------  ADD NEW NOTE IN FOLDER ---------------------
 
 function addNewNoteInFolder() {
-    let x = document.querySelector('#activeNow #tilte').value
-    let y = document.querySelector('#activeNow #des').value
+    let tit = document.querySelector('#activeNow #tilte').value
+    let des = document.querySelector('#activeNow #des').value
     let noteId = (Math.random() * 1000000).toFixed()
-    new AddNoteInFolder().addNoteInDom(document.querySelector('#liActiveNow').classList, noteId, x, y)
+    new AddNoteInFolder().addNoteInDom(document.querySelector('#liActiveNow').classList, noteId, tit, des)
     closeModalNewNoteInFolder()
 }

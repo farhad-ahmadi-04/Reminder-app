@@ -28,18 +28,17 @@ header {
     position: fixed;
     top: 0;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     background-color: #F2F2F2;
-    /* box-shadow: 0 1vh 2vh 2vh #F2F2F2; */
-    padding: 2vh 0 0 0;
 }
 
 /* style div samt chap header */
 .div-left-header {
     background-image: linear-gradient(#faf4f4, #7b7a7a42, #68686874);
     border-radius: 3vh;
-    min-width: 70%;
+    width: 60%;
+    margin-left: 1.5vh;
 }
 
 /* div samt chap header > (ul) */
@@ -59,17 +58,25 @@ header {
     background: linear-gradient(top #79797955, #797979);
     color: #464646;
     box-shadow: 0vh 0.4vh 0.3vh 0.2vh #afafaf;
-    width: 19%;
     display: flex;
-    text-align: center;
-    overflow-x: hidden;
     align-items: center;
+    width: 33%;
+    /* min-width: 33%; */
+    white-space: nowrap;
+    overflow: hidden;
+    /* justify-content: flex-start; */
     justify-content: center;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+}
+
+.div-left-header ul li:nth-of-type(3) {
+    justify-content: flex-start;
 }
 
 /* div samt rast header */
 .div-right-header {
-    margin-right: 0.2vh;
+    margin: 1.2vh 0.5vh 0 0;
     position: relative;
     vertical-align: middle;
 }
@@ -128,7 +135,7 @@ header {
 /* .....................style main................ */
 
 main {
-    margin-top: calc(13vh + 40px);
+    margin-top: calc(8vh + 40px);
 }
 
 .mood {
@@ -395,11 +402,12 @@ main {
 /*................... Folder style section .......................*/
 
 .folderSection {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     overflow-y: scroll;
     display: none;
-
+    padding-top: 3vh;
+    padding-bottom: 90vh;
 }
 
 #containerAddNewFolder {
@@ -477,8 +485,9 @@ main {
 }
 
 #containerAllFolders {
-    width: 100%;
-    height: 85vh;
+    width: 85%;
+    height: 90vh;
+    margin: 0 auto;
 }
 
 #containerAllFolders>div {
@@ -525,9 +534,34 @@ main {
 
 #activeNow {
     display: none;
-    height: 85vh;
     width: 100%;
     margin: 0;
+}
+
+#activeNow .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 75%;
+    margin: 0 auto;
+    align-items: flex-end;
+}
+
+#activeNow .header h3 {
+    margin: 0;
+}
+
+#activeNow .header span {
+    font-size: 4vh;
+    font-weight: bold;
+    color: #5F5F5F;
+}
+
+#activeNow>hr {
+    background-color: rgb(0, 0, 0);
+    height: 0.1vh;
+    width: 80%;
+    margin: 2vh auto 1vh;
 }
 
 /*........................ footer style .......................... */
@@ -600,7 +634,9 @@ footer input {
     flex-wrap: wrap;
     justify-content: left;
     width: 80%;
+    min-height: 82vh;
     margin: 0 auto;
+    align-content: flex-start;
 }
 
 #PlacementOfNotes li {
