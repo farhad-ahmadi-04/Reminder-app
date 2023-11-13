@@ -220,6 +220,9 @@ function closeModalNewNoteInFolder() {
     activeNowToDo.querySelector('textarea').value = ''
 }
 
+// defualt value for date division
+resulteDate.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}`
+
 // status of date div 
 let isDivVisible = false;
 // date div for choosing date
@@ -256,8 +259,11 @@ function svgPosition(num) {
     dateButtonimg.style.left = newLeft + 'px';
 }
 
+
+let saveCount = 0;
 // save note to DOM
 function saveNote() {
+    saveCount += 1;
     // title text in input (new to do modal)
     const title = document.querySelector(".newToDo>div:nth-of-type(2)>input").value;
     // description text in texterea (new to do moodal)
@@ -266,27 +272,21 @@ function saveNote() {
     let noteId = (Math.random() * 1000000).toFixed()
     // data in resulteDate div (new to do modal)
     let date = document.querySelector(".resulteDate")
-
-    if (!validate(title, des)) {
-        let errorMessage = new ErrorMsg("Check the title and description", newToDo)
-        errorMessage.positionTemplate()
-    } else {
-        if (!checkTimeNewNode(document.querySelector('.selectedHour').textContent, document.querySelector('.SelectMinutes').textContent)) {
-            let errorMessage = new ErrorMsg("Check the time", newToDo)
+    // if user don not want to choose time and date
+    if (!isDivVisible) {
+        // chick validaition 
+        if (!validate(title, des)) {
+            let errorMessage = new ErrorMsg("Check the title and description", newToDo)
             errorMessage.positionTemplate()
+            // if user fill the title & description
         } else {
-            // chick validaition
             // create obj from Note class
             let saveInDom = new Note(title, des, noteId, date.textContent);
             const saveInLs = new NoteLs()
             // use obj for add note to DOM + LS
             saveInDom.addNewNote()
             // save note in local storage
-
             saveInLs.addNoteInLS(title, noteId, des, date.textContent)
-            // show alarm when user target date is arive
-            let alarm = new Alarm(date.textContent, noteId)
-            alarm.setAlarm()
             // change style in new to do modal
             newToDo.style.display = 'none';
             document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
@@ -294,9 +294,61 @@ function saveNote() {
             // defualt set current date for notes
             resulteDate.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}`
         }
+        // if user want to choose time and date
+    } else {
+        // first check the validation of title and description
+        if (!validate(title, des)) {
+            let errorMessage = new ErrorMsg("Check the title and description", newToDo)
+            errorMessage.positionTemplate()
+        } else {
+            // if user choose date
+            if (calendarCount >= 1) {
+                // if user target date was today
+                if (`${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}` == resulteDate.textContent) {
+                    // if user selected previous time that now
+                    if (!checkTimeNewNode(document.querySelector('.selectedHour').textContent, document.querySelector('.SelectMinutes').textContent)) {
+                        let errorMessage = new ErrorMsg("don't choose pass time", newToDo)
+                        errorMessage.positionTemplate()
+                        // // if user did not selected previous time that now
+                    } else {
+                        // create obj from Note class
+                        let saveInDom = new Note(title, des, noteId, date.textContent);
+                        const saveInLs = new NoteLs()
+                        // use obj for add note to DOM + LS
+                        saveInDom.addNewNote()
+                        // save note in local storage
+                        saveInLs.addNoteInLS(title, noteId, des, date.textContent)
+                        // show alarm when user target date is arive
+                        let alarm = new Alarm(date.textContent, noteId)
+                        alarm.setAlarm()
+                        // change style in new to do modal
+                        cancelNote()
+                    }
+                    // if user target date was future
+                } else {
+                    // create obj from Note class
+                    let saveInDom = new Note(title, des, noteId, date.textContent);
+                    const saveInLs = new NoteLs()
+                    // use obj for add note to DOM + LS
+                    saveInDom.addNewNote()
+                    // save note in local storage
+                    saveInLs.addNoteInLS(title, noteId, des, date.textContent)
+                    // show alarm when user target date is arive
+                    let alarm = new Alarm(date.textContent, noteId)
+                    alarm.setAlarm()
+                    // change style in new to do modal
+                    cancelNote()
+                }
+            } else {
+                let errorMessage = new ErrorMsg("choose your time", newToDo)
+                errorMessage.positionTemplate()
+            }
+        }
     }
-
+    saveCount = 0
 }
+
+
 // if user cancel the save note 
 function cancelNote() {
     // change style in new to do modal
@@ -304,8 +356,16 @@ function cancelNote() {
     document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
     document.querySelector(".newToDo>div:nth-of-type(3)>textarea").value = "";
     // data in resulteDate div (new to do modal)
-    let date = document.querySelector(".resulteDate")
-    date.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}`
+    // let date = document.querySelector(".resulteDate")
+    resulteDate.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}`
+    if (isDivVisible) {
+        svgPosition(-38)
+        dateButton.style = "background: rgba(255, 255, 255, 0.56);"
+        // show date div
+        date.style.display = "none"
+        isDivVisible = false
+        calendarCount = 0
+    }
 }
 // validation for add note
 function validate(tit, des) {
@@ -392,7 +452,7 @@ function showCalender() {
 
 
 let count = 0
-
+let calendarCount = 0
 // 
 function full(e) {
     count++
@@ -413,8 +473,10 @@ function full(e) {
                 resulteDate.innerHTML = `${yearValue}/${monthValue}/${date}`
                 // hide calendar
                 calendarModal.style.display = 'none'
+                calendarCount += 1
             } else {
                 calendarModal.style.display = 'flex'
+                calendarCount = 0
             }
         }
         count = 0
