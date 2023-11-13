@@ -355,8 +355,24 @@
 
         <section id="activeNow">
             <div class="header">
-                <h3>New Folder</h3>
-                <span>...</span>
+                <h3 id="folderName">New Folder</h3>
+                <span id="menuFolder">...</span>
+                <div id="modalMenuFolder">
+                    <ul>
+                        <li>
+                            <span>Rename</span>
+                            <img src="images/icons/Ellipse 8.svg" alt="">
+                        </li>
+                        <li>
+                            <span>add</span>
+                            <img src="images/icons/icon-add.svg" alt="">
+                        </li>
+                        <li id="deleteFolderBtn">
+                            <span>delete</span>
+                            <img src="images/icons/icon-delete.svg" alt="">
+                        </li>
+                    </ul>
+                </div>
             </div>
             <hr>
             <ul id="PlacementOfNotes">
@@ -569,6 +585,15 @@
                     <div>
                         <span id="save">save</span>
                         <img src="images/icons/icon-save.svg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div id="bac-modalDeleteFolder">
+                <div id="modalDeleteFolder">
+                    <h3>Delete this Folder?</h3>
+                    <div>
+                        <span id="closeModalDeleteFolder">No</span>
+                        <span id="deleteFolder">Yes</span>
                     </div>
                 </div>
             </div>

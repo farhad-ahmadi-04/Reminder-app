@@ -1,4 +1,5 @@
 // ---varibles--
+let body = document.querySelector('body')
 let cal = new Calendar() // calendar
 // Select ul in the nav header
 let navHeader = document.querySelector('.div-left-header ul')
@@ -55,6 +56,15 @@ const resulteDate = document.querySelector(".resulteDate")
 // days in calendar
 let days = document.querySelector(".days")
 
+let menuFolder = document.querySelector('#menuFolder')
+let deleteFolderBtn = document.querySelector('#deleteFolderBtn')
+let modalMenuFolder = document.querySelector('#modalMenuFolder')
+let bacModalDeleteFolder = document.querySelector('#bac-modalDeleteFolder')
+let btnCloseModalDeleteFolder = document.querySelector('#closeModalDeleteFolder')
+let deleteFolder = document.querySelector('#deleteFolder')
+
+
+
 
 
 // --event--
@@ -92,6 +102,14 @@ clock.addEventListener('click', setClock)
 days.addEventListener("click", full)
 // calendarModal.addEventListener("click", full) // for show date in template
 saveModalAddNewNoteInFolder.addEventListener('click', addNewNoteInFolder)
+menuFolder.addEventListener('click', showModalMenuFolder)
+deleteFolderBtn.addEventListener('click', showModalDeleteFolder)
+btnCloseModalDeleteFolder.addEventListener('click', closeModalDeleteFolder)
+deleteFolder.addEventListener('click', deleteFolderInDomAndLs)
+
+
+
+
 
 
 
@@ -138,6 +156,8 @@ function changeSectionInMain(info) {
             ChangeTheNewAddIcon(2)
             // Removing the New Note modal opened when switching pages
             closeModalNewFolder()
+            containerAllFolders.innerHTML = ''
+            new SetNewFolderInLS().loadNotesInPage()
             break;
         case 3:
             // Delete all main sections
@@ -546,6 +566,7 @@ function showNoteInFolder(e) {
         // show page notes in folder
         changeSectionInMain(4)
         new ShowNoteInFolderByLs(e.target.classList[0]).getNotesInLs()
+        folderName.textContent = e.target.querySelector('h3').textContent
         // If you click on the title folder
     } else if (e.target.classList.contains('h3')) {
         //set the title folder
@@ -553,6 +574,7 @@ function showNoteInFolder(e) {
         // show page notes in folder
         changeSectionInMain(4)
         new ShowNoteInFolderByLs(e.target.parentElement.parentElement.classList[0]).getNotesInLs()
+        folderName.textContent = e.target.textContent
     }
 }
 
@@ -581,10 +603,59 @@ function removeBtnHeader(info) {
 
 // --------------------  ADD NEW NOTE IN FOLDER ---------------------
 
+// The command to add a note in the local storage of notes and folders and create the desired folder and all section on the page
 function addNewNoteInFolder() {
+    // Get the title entered in the note
     let tit = document.querySelector('#activeNow #tilte').value
+    // Receive the description entered in the note
     let des = document.querySelector('#activeNow #des').value
+    // Create a random ID
     let noteId = (Math.random() * 1000000).toFixed()
+    // set 1 = id folder for create new note in folder
+    // set 2 = id random
+    // set 3 = title new note
+    // set 4 = description new note
     new AddNoteInFolder().addNoteInDom(document.querySelector('#liActiveNow').classList, noteId, tit, des)
+    // Hide the modal to create a new note in the folder
     closeModalNewNoteInFolder()
+}
+
+// By clicking on the folder menu, the display of the folder menu will be flexed
+function showModalMenuFolder() {
+    modalMenuFolder.style.display = 'flex'
+}
+
+// Click the delete button to hide the menu
+// The modal display of the question is to be flexed
+function showModalDeleteFolder() {
+    modalMenuFolder.style.display = 'none'
+    bacModalDeleteFolder.style.display = 'flex'
+}
+
+// With the no button, display the question modal to indicate none
+function closeModalDeleteFolder() {
+    bacModalDeleteFolder.style.display = 'none'
+}
+
+// With the Use button, display the question modal to delete none
+// Delete the folder from local storage and DOM
+function deleteFolderInDomAndLs() {
+    bacModalDeleteFolder.style.display = 'none'
+    let liActiveNow = document.querySelector('#liActiveNow').classList[0]
+    let lsFolder = JSON.parse(localStorage.getItem('folders'))
+
+    lsFolder.forEach(
+        (idFolder, indexFolder) => {
+            if (toNumber(liActiveNow) == idFolder.folderID) {
+                console.log(idFolder.folderID);
+                lsFolder.splice(indexFolder, 1)
+            }
+        }
+    );
+    lsFolder = JSON.stringify(lsFolder)
+    localStorage.setItem('folders', lsFolder)
+
+    changeSectionInMain(2)
+    document.querySelector('#liActiveNow').remove()
+    info = 0
 }

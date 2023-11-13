@@ -509,8 +509,10 @@ class AddNoteInFolder {
     }
 
     addNoteInDom(idFolder, IDR, tit, des) {
-        PlacementOfNotes.insertAdjacentHTML('afterbegin', this.template(IDR, tit, des))
+        PlacementOfNotes.insertAdjacentHTML('beforeend', this.template(IDR, tit, des))
         this.getIdNotesInFolder(idFolder, IDR, tit, des)
+        this.setNoteInLsNotes(IDR, tit, des)
+        mainUl.insertAdjacentHTML('beforeend', this.template(IDR, tit, des))
     }
 
     getIdNotesInFolder(e, IDR, tit, des) {
@@ -529,6 +531,19 @@ class AddNoteInFolder {
         );
         LSFolder = JSON.stringify(LSFolder)
         localStorage.setItem('folders', LSFolder)
+    }
+
+    setNoteInLsNotes(IDR, tit, des) {
+        let LSNotes = JSON.parse(localStorage.getItem('Notes'))
+        LSNotes.push(
+            {
+                ID: IDR,
+                noteText: tit,
+                description: des
+            }
+        )
+        LSNotes = JSON.stringify(LSNotes)
+        localStorage.setItem('Notes', LSNotes)
     }
 }
 // /////////////////////////////////////////////
