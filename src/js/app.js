@@ -55,6 +55,9 @@ let calendarYear = document.querySelector(".calendarHeader>div>p")
 const resulteDate = document.querySelector(".resulteDate")
 // days in calendar
 let days = document.querySelector(".days")
+// clock => hours
+let hours = document.querySelector(".hours")
+let minutes = document.querySelector(".minuts")
 
 let menuFolder = document.querySelector('#menuFolder')
 let deleteFolderBtn = document.querySelector('#deleteFolderBtn')
@@ -110,6 +113,9 @@ deleteFolder.addEventListener('click', deleteFolderInDomAndLs)
 
 
 
+// add time to divition
+hours.addEventListener("click", addTime)
+minutes.addEventListener("click", addTime)
 
 
 
@@ -292,6 +298,10 @@ function saveNote() {
     let noteId = (Math.random() * 1000000).toFixed()
     // data in resulteDate div (new to do modal)
     let date = document.querySelector(".resulteDate")
+    // time clock div (new to do modal)
+    let timeH = document.querySelector(".clock>div:first-of-type>.selectedHour").textContent
+    let timeM = document.querySelector(".clock>div:first-of-type>.SelectMinutes").textContent
+    let targetTime = `${timeH}:${timeM}`
     // if user don not want to choose time and date
     if (!isDivVisible) {
         // chick validaition 
@@ -301,12 +311,12 @@ function saveNote() {
             // if user fill the title & description
         } else {
             // create obj from Note class
-            let saveInDom = new Note(title, des, noteId, date.textContent);
+            let saveInDom = new Note(title, des, noteId, date.textContent, targetTime);
             const saveInLs = new NoteLs()
             // use obj for add note to DOM + LS
             saveInDom.addNewNote()
             // save note in local storage
-            saveInLs.addNoteInLS(title, noteId, des, date.textContent)
+            saveInLs.addNoteInLS(title, noteId, des, date.textContent, targetTime)
             // change style in new to do modal
             newToDo.style.display = 'none';
             document.querySelector(".newToDo>div:nth-of-type(2)>input").value = "";
@@ -332,12 +342,12 @@ function saveNote() {
                         // // if user did not selected previous time that now
                     } else {
                         // create obj from Note class
-                        let saveInDom = new Note(title, des, noteId, date.textContent);
+                        let saveInDom = new Note(title, des, noteId, date.textContent, targetTime);
                         const saveInLs = new NoteLs()
                         // use obj for add note to DOM + LS
                         saveInDom.addNewNote()
                         // save note in local storage
-                        saveInLs.addNoteInLS(title, noteId, des, date.textContent)
+                        saveInLs.addNoteInLS(title, noteId, des, date.textContent, targetTime)
                         // show alarm when user target date is arive
                         let alarm = new Alarm(date.textContent, noteId)
                         alarm.setAlarm()
@@ -347,12 +357,12 @@ function saveNote() {
                     // if user target date was future
                 } else {
                     // create obj from Note class
-                    let saveInDom = new Note(title, des, noteId, date.textContent);
+                    let saveInDom = new Note(title, des, noteId, date.textContent, targetTime);
                     const saveInLs = new NoteLs()
                     // use obj for add note to DOM + LS
                     saveInDom.addNewNote()
                     // save note in local storage
-                    saveInLs.addNoteInLS(title, noteId, des, date.textContent)
+                    saveInLs.addNoteInLS(title, noteId, des, date.textContent, targetTime)
                     // show alarm when user target date is arive
                     let alarm = new Alarm(date.textContent, noteId)
                     alarm.setAlarm()
@@ -401,11 +411,9 @@ function validate(tit, des) {
 function checkTimeNewNode(e, x) {
     let status = false
     if (e < getNewYears().hour) {
-        alert('ساعت آینده را وارد کنید')
         status = false
     } else if (e == getNewYears().hour) {
         if (x < getNewYears().minutes) {
-            alert('دقیقه آینده را وارد کنید!!!')
             status = false
         } else {
             // alert('dorostrh');
@@ -429,6 +437,8 @@ function getNewYears() {
         minutes
     }
 }
+
+
 
 
 // Convert string to number
@@ -524,8 +534,29 @@ function calendarValidate(yearValue, monthValue, date) {
 // --------------------- clock --------------------------
 function setClock(e) {
     if (e.target.classList.contains('clock')) {
-        new Clock().showListHoursClock()
+        new Clock().template()
     }
+}
+
+function addTime(e) {
+    let selectedHour = document.querySelector(".clock>div>.selectedHour")
+    let SelectMinutes = document.querySelector(".clock>div>.SelectMinutes")
+    if (e.target.parentElement == hours) {
+        selectedHour.textContent = e.target.textContent
+    }
+    if (e.target.parentElement == minutes) {
+        SelectMinutes.textContent = e.target.textContent
+    }
+    if (selectedHour.textContent == "--" || SelectMinutes == "--") {
+        console.log("block");
+        document.querySelector(".clock-modal").style.display = "block";
+        document.querySelector(".clock-modal02").style.display = "block"
+    } else {
+        console.log("none");
+        document.querySelector(".clock-modal").style.display = "none";
+        document.querySelector(".clock-modal02").style.display = "none"
+    }
+
 }
 
 //     console.log(calendarModal);

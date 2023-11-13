@@ -38,7 +38,7 @@ class NoteLs {
     // paramt : data id of note
     // paramt : note description
     // output : add note to DOm + LS
-    addNoteInLS(noteTitle, noteID, noteDes, date) {
+    addNoteInLS(noteTitle, noteID, noteDes, date, targetTime) {
         // 1 load LS note 
         let LSNotes = this.laodOfLS()
 
@@ -48,7 +48,9 @@ class NoteLs {
             noteText: noteTitle,
             description: noteDes,
             date: date,
-            createDate: `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}`
+            createDate: `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}`,
+            targetTime: targetTime,
+            currentTime: `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`
         })
         // 3 save notes in LS
         this.saveNoteInLS(LSNotes)
@@ -78,12 +80,13 @@ class Note {
 
     // constructor
 
-    constructor(title, description, noteID, date) {
+    constructor(title, description, noteID, date, targetTime) {
         this.title = title;
         this.description = description;
         this.noteID = noteID;
         this.noteLs = new NoteLs()
         this.date = date
+        this.targetTime = targetTime
     }
     // methods
 
@@ -93,7 +96,7 @@ class Note {
     // paramt2 : note data ID
     // paramt3 : note description
     // return : template of note
-    noteTemplate(notwTitle, noteID, noteText, date) {
+    noteTemplate(notwTitle, noteID, noteText, date, targetTime) {
         return `
         <li data-id='${noteID}' class="noteLi">
             <div class="noteHeader">
@@ -105,7 +108,7 @@ class Note {
             </div>
             <div class="dateTime">
                 <div>${date}</div>
-                <div>22:30</div>
+                <div>${targetTime}</div>
             </div>
         </li>
     `
@@ -126,14 +129,14 @@ class Note {
     // paramt : note title
     // paramt2 : note data ID
     // paramt3 : note description
-    addNoteToNoteList(noteTitle, noteID, noteText, date) {
+    addNoteToNoteList(noteTitle, noteID, noteText, date, targetTime) {
         mainUl
-            .insertAdjacentHTML('afterbegin', this.noteTemplate(noteTitle, noteID, noteText, date))
+            .insertAdjacentHTML('afterbegin', this.noteTemplate(noteTitle, noteID, noteText, date, targetTime))
     }
     // add note to DOM
     addNewNote() {
         // for add note to DOM
-        this.addNoteToNoteList(this.title, this.noteID, this.description, this.date)
+        this.addNoteToNoteList(this.title, this.noteID, this.description, this.date, this.targetTime)
 
     }
 
@@ -419,47 +422,111 @@ class SetNewFolderInLS {
     }
 }
 
+// class Clock {
+//     selctors() {
+//         return {
+//             liClock: document.querySelector('.selectedHour'),
+//             placeClock: document.querySelector('.placeClock'),
+//             SelectMinutes: document.querySelector('.SelectMinutes'),
+//             placeMinutes: document.querySelector('.placeMinutes')
+//         }
+//     }
+
+//     showListHoursClock() {
+
+//         let placeClock = document.createElement('ul')
+//         placeClock.classList.add('placeClock')
+//         placeClock.insertAdjacentHTML('beforeend', `<li class="optionClock">ساعت</li>`)
+//         for (let i = 1; i <= 24; i++) {
+//             placeClock.insertAdjacentHTML('beforeend', `<li onclick="new Clock().setClock(${i})" class="optionClock">${i}</li>`)
+//         }
+//         clock.append(placeClock)
+//         for (let i = 1; i < 60; i++) {
+//             placeMinutes.insertAdjacentHTML('beforeend', `<li onclick="new Clock().setMinutes(${i})" class="optionMinutes">${i}</li>`)
+//         }
+//     }
+//     showListMinutes() {
+
+//         let placeMinutes = document.createElement('ul')
+//         placeMinutes.classList.add('placeMinutes')
+//         placeMinutes.insertAdjacentHTML('beforeend', `<li class="optionMinutes">دقیقه</li>`)
+//         clock.append(placeMinutes)
+//     }
+//     setClock(e) {
+//         this.selctors().liClock.innerHTML = e
+//         this.selctors().placeClock.remove()
+//         this.showListMinutes()
+//     }
+//     setMinutes(e) {
+//         this.selctors().SelectMinutes.innerHTML = e
+//         this.selctors().placeMinutes.remove()
+//     }
+// }
+
 class Clock {
-    selctors() {
-        return {
-            liClock: document.querySelector('.selectedHour'),
-            placeClock: document.querySelector('.placeClock'),
-            SelectMinutes: document.querySelector('.SelectMinutes'),
-            placeMinutes: document.querySelector('.placeMinutes')
+    // constructor
+    constructor() {
+        // get current hours
+        this.currentHours = new Date().getHours();
+        // get current minutes
+        this.currentMinutes = new Date().getMinutes();
+    }
+    // methods
+    ClockModal(hours, minuts) {
+        let clockTemplate = document.querySelector(".clock-modal")
+        let clockTemplate02 = document.querySelector(".clock-modal02")
+        // change style of clock div for show it to user
+        clockTemplate.style.display = "block"
+        clockTemplate02.style.display = "block"
+
+        let selectH = document.querySelector(".hours")
+
+        let selectM = document.querySelector(".minuts")
+        if (minuts == "") {
+            let optionH = document.createElement("li")
+            optionH.value = hours
+            optionH.textContent = hours
+
+            selectH.appendChild(optionH)
+        } else if (hours == "") {
+            let optionM = document.createElement("li")
+            optionM.value = minuts
+            optionM.textContent = minuts
+
+            selectM.appendChild(optionM)
+        }
+
+
+
+    }
+
+    template() {
+        // create loop for sent hours => we have 24 hourd in a day
+        for (let h = 1; h <= 24; h++) {
+            if (h < 10) {
+                this.ClockModal(`0${h}`, "")
+            } else {
+                this.ClockModal(h, "")
+            }
+        }
+        // create loop for sent minutes => we have 60 hourd in a 1 hour
+        for (let m = 0; m <= 60; m++) {
+            if (m < 10) {
+                this.ClockModal("", `0${m}`)
+            } else {
+                this.ClockModal("", m)
+            }
         }
     }
 
-    showListHoursClock() {
-
-        let placeClock = document.createElement('ul')
-        placeClock.classList.add('placeClock')
-        placeClock.insertAdjacentHTML('beforeend', `<li class="optionClock">ساعت</li>`)
-        for (let i = 1; i <= 24; i++) {
-            placeClock.insertAdjacentHTML('beforeend', `<li onclick="new Clock().setClock(${i})" class="optionClock">${i}</li>`)
+    targetTime(e) {
+        let clockTemplate = document.querySelector(".clock-modal")
+        let clockTemplate02 = document.querySelector(".clock-modal02")
+        if (e.target.classList.contains("clock-modal")) {
+            console.log(e.target);
         }
-        clock.append(placeClock)
-    }
-    showListMinutes() {
-
-        let placeMinutes = document.createElement('ul')
-        placeMinutes.classList.add('placeMinutes')
-        placeMinutes.insertAdjacentHTML('beforeend', `<li class="optionMinutes">دقیقه</li>`)
-        for (let i = 1; i < 60; i++) {
-            placeMinutes.insertAdjacentHTML('beforeend', `<li onclick="new Clock().setMinutes(${i})" class="optionMinutes">${i}</li>`)
-        }
-        clock.append(placeMinutes)
-    }
-    setClock(e) {
-        this.selctors().liClock.innerHTML = e
-        this.selctors().placeClock.remove()
-        this.showListMinutes()
-    }
-    setMinutes(e) {
-        this.selctors().SelectMinutes.innerHTML = e
-        this.selctors().placeMinutes.remove()
     }
 }
-
 
 class ErrorMsg {
     // constructor
