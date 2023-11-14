@@ -61,7 +61,6 @@
 
 .dateTime {
     display: flex;
-    height: 27%;
     align-items: end;
     justify-content: space-between;
     padding: 0px 15px 0px 15px;
