@@ -236,24 +236,75 @@
 
 /* error massage end */
 
-/* alarm */
+/* alarm start*/
 .alarmtemplate {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
-    color: #595959;
+    height: 10vh;
+    color: #FFFFFF;
     font-size: 2rem;
     z-index: 2;
     position: absolute;
     top: -100px;
     align-items: center;
     animation: alarmStart 1s linear forwards;
+    border-radius: 8px;
+    background: linear-gradient(99deg, #697089 15.18%, #4E65B6 80.01%, #6787F8 98.65%);
+    box-shadow: 0px 4px 2px 0px rgba(0, 0, 0, 0.25);
 }
 
-.alarmtemplate button {
+.alarmtemplate>div {
+    text-align: start;
+    margin-left: 80px;
+    align-self: center;
+}
+
+.alarmtemplate>div:first-of-type {
+    width: 30%;
+}
+
+.right-alarm {
+    margin-right: 80px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 40%;
+    justify-content: flex-end;
+    align-content: flex-end;
+}
+
+.alarmtemplate>div:last-of-type>div:first-of-type {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 10px;
     width: 100%;
-    color: #DADADA;
-    background-color: #6A738A;
-    padding: 10px;
-    font-size: 2rem;
+}
+
+.alarm-item>div:last-of-type {
+    width: 12%;
+
+    flex-shrink: 0;
+    margin-left: 20px;
+}
+
+.alarm-item>div:last-of-type img {
+    width: 100%;
+    margin: 10px 10px 0px 0px;
+}
+
+.alarmtemplate>div:last-of-type>div:last-of-type button {
+    flex-shrink: 0;
+    border-radius: 5px;
+    border-right: 1px solid #414141;
+    border-bottom: 1px solid #414141;
+    border-left: 1px solid #414141;
+    background: rgba(237, 237, 237, 0.13);
+    padding: 15px 40px;
+    font-size: 2.34rem;
+    color: #fff;
 }
 
 .hideAlarm {
@@ -279,6 +330,8 @@
         top: 100px;
     }
 }
+
+/* alarm end */
 
 /* clock start*/
 /* base clock modal */

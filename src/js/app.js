@@ -586,7 +586,10 @@ function addTime(e) {
 
 }
 
-// ...........................
+// stop modal
+function stopAlarm() {
+    document.querySelector(".alarmtemplate").remove()
+}
 
 // show notes in folder
 function showNoteInFolder(e) {
@@ -693,7 +696,7 @@ function deleteFolderInDomAndLs() {
 
 // create place for information new not
 let y = localStorage.setItem('newNote', '[]')
-// set information new note in ls (newNote)
+
 function showValueNote(IDR, tit, des) {
     // get place newNote in LS
     let x = localStorage.getItem('newNote')
