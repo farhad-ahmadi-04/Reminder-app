@@ -682,10 +682,10 @@ class Alarm {
         // target day - current day = day for change it to seconds
         let targetDay = this.dateAlarm().day - currentDay
         // target hour - current hour = hour for change it to seconds
-        let targetHour = this.dateAlarm().hour
+        let targetHour = this.dateAlarm().hour - currentHour
         // target minute - current minute = minute for change it to seconds
-        let targetMinute = this.dateAlarm().minute
-        console.log(targetHour, targetMinute, currentHour, currentMinute);
+        let targetMinute = this.dateAlarm().minute - currentMinute
+
         return {
             targetYear: targetYear,
             targetMonth: targetMonth,
@@ -708,13 +708,14 @@ class Alarm {
         // 1minutes = 60 seconds
         let minuteToSecond = this.extraDate().targetMinute * 60
 
-
+        console.log(yearToSecond, monthToSecond, dayToSecond, hourToSecond, minuteToSecond);
 
         // formula for set alarm
         let userTargetDate = (yearToSecond) + (monthToSecond) + (dayToSecond) + (hourToSecond) + (minuteToSecond)
         console.log(userTargetDate);
         return userTargetDate
     }
+
     // pass targetTime to this function and after the user target time set alarm
     setAlarm() {
         let alarm = setTimeout(() => {
@@ -723,12 +724,22 @@ class Alarm {
     }
     // template of alarm
     alarmTemplate() {
-        return `
-        <div class="alarmtemplate">
-            <div class="text">${this.noteId}</div>
+        return `      
+        <div class="alarmtemplate" data-id=${this.noteId}>
             <div>
-                <button class="alarmStop">undrestood</button>
+                <p>Alarm</p>
+                <p>${this.timeH}:${this.timeM}</p>
+            </div>
+            <div>
+                <div>
+                    <div>New time</div>
+                    <div><img src="images/icons/the watch.svg" alt=""></div>
+                </div>
+                <div>
+                    <button>Stop</button>
+                </div>
             </div>
         </div>`
     }
+
 }

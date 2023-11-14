@@ -539,18 +539,18 @@ function full(e) {
 
 function calendarValidate(yearValue, monthValue, date) {
     // first check the year => if target year is less than current year, then calendar does not send value
-    if (yearValue < new Date().getFullYear()) {
+    if (parseInt(yearValue) < new Date().getFullYear()) {
         return false;
         // secends must check the month => if target month is less than current month, then calendar does not send value
-    } else if (monthValue < new Date().getMonth() + 1) {
+    } else if (parseInt(yearValue) == new Date().getFullYear() && parseInt(monthValue) < new Date().getMonth() + 1) {
         return false;
         // finaly must check the date => if target date is less than current date, then calendar does not send value
-    } else if (date < new Date().getDate()) {
+    } else if ((parseInt(yearValue) == new Date().getFullYear()) && (parseInt(monthValue) == new Date().getMonth() + 1) && (parseInt(date) < new Date().getDate())) {
         return false;
         // but if all the conditions are true, so calendar send the value and change display to "none"
     } else {
         return true;
-    }
+    };
 }
 
 
