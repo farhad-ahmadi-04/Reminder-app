@@ -514,7 +514,7 @@ class Clock {
             }
         }
         // create loop for sent minutes => we have 60 hourd in a 1 hour
-        for (let m = 0; m <= 60; m++) {
+        for (let m = 0; m < 60; m++) {
             if (m < 10) {
                 this.ClockModal("", `0${m}`)
             } else {
@@ -730,13 +730,13 @@ class Alarm {
                 <p>Alarm</p>
                 <p>${this.timeH}:${this.timeM}</p>
             </div>
-            <div>
-                <div>
+            <div class="right-alarm">
+                <div class="alarm-item">
                     <div>New time</div>
                     <div><img src="images/icons/the watch.svg" alt=""></div>
                 </div>
                 <div>
-                    <button>Stop</button>
+                    <button onclick="stopAlarm()" class="btn-alarm">Stop</button>
                 </div>
             </div>
         </div>`

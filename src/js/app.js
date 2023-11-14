@@ -588,6 +588,11 @@ function addTime(e) {
 
 }
 
+// stop modal
+function stopAlarm() {
+    document.querySelector(".alarmtemplate").remove()
+}
+
 //     console.log(calendarModal);
 //     console.log("ok");
 
@@ -721,6 +726,7 @@ function deleteFolderInDomAndLs() {
 }
 
 let y = localStorage.setItem('newNote', '[]')
+
 function showValueNote(IDR, tit, des) {
     let x = localStorage.getItem('newNote')
     x = JSON.parse(x)
