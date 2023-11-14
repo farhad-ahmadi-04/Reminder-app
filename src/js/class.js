@@ -213,7 +213,7 @@ class NewFolder {
         </div>
         <div>
         <span><span class="lengthNoteInFolder">${this.getLengthNoteInFolder(IdRandom)}</span>, File</span>
-        <img src="images/icons/folder.svg" alt="">
+        <img src="images/icons/folderW.svg" alt="">
         </div>
         </div>
         `
@@ -426,46 +426,6 @@ class SetNewFolderInLS {
     }
 }
 
-// class Clock {
-//     selctors() {
-//         return {
-//             liClock: document.querySelector('.selectedHour'),
-//             placeClock: document.querySelector('.placeClock'),
-//             SelectMinutes: document.querySelector('.SelectMinutes'),
-//             placeMinutes: document.querySelector('.placeMinutes')
-//         }
-//     }
-
-//     showListHoursClock() {
-
-//         let placeClock = document.createElement('ul')
-//         placeClock.classList.add('placeClock')
-//         placeClock.insertAdjacentHTML('beforeend', `<li class="optionClock">ساعت</li>`)
-//         for (let i = 1; i <= 24; i++) {
-//             placeClock.insertAdjacentHTML('beforeend', `<li onclick="new Clock().setClock(${i})" class="optionClock">${i}</li>`)
-//         }
-//         clock.append(placeClock)
-//         for (let i = 1; i < 60; i++) {
-//             placeMinutes.insertAdjacentHTML('beforeend', `<li onclick="new Clock().setMinutes(${i})" class="optionMinutes">${i}</li>`)
-//         }
-//     }
-//     showListMinutes() {
-
-//         let placeMinutes = document.createElement('ul')
-//         placeMinutes.classList.add('placeMinutes')
-//         placeMinutes.insertAdjacentHTML('beforeend', `<li class="optionMinutes">دقیقه</li>`)
-//         clock.append(placeMinutes)
-//     }
-//     setClock(e) {
-//         this.selctors().liClock.innerHTML = e
-//         this.selctors().placeClock.remove()
-//         this.showListMinutes()
-//     }
-//     setMinutes(e) {
-//         this.selctors().SelectMinutes.innerHTML = e
-//         this.selctors().placeMinutes.remove()
-//     }
-// }
 
 class Clock {
     // constructor
