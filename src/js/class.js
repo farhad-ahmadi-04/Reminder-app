@@ -95,6 +95,8 @@ class Note {
     // paramt1 : note title
     // paramt2 : note data ID
     // paramt3 : note description
+    // paramt4 : target date
+    // paramt5: target time
     // return : template of note
     noteTemplate(notwTitle, noteID, noteText, date, targetTime) {
         return `
@@ -120,7 +122,7 @@ class Note {
         // adding them to DOM
         laodTime.forEach(
             function (eachNote) {
-                new Note().addNoteToNoteList(eachNote.noteText, eachNote.ID, eachNote.description, eachNote.date)
+                new Note().addNoteToNoteList(eachNote.noteText, eachNote.ID, eachNote.description, eachNote.date, eachNote.targetTime)
             }
         )
     }
@@ -129,6 +131,8 @@ class Note {
     // paramt : note title
     // paramt2 : note data ID
     // paramt3 : note description
+    // paramt4: target date
+    // paramt5: target time
     addNoteToNoteList(noteTitle, noteID, noteText, date, targetTime) {
         mainUl
             .insertAdjacentHTML('afterbegin', this.noteTemplate(noteTitle, noteID, noteText, date, targetTime))
@@ -518,14 +522,6 @@ class Clock {
             }
         }
     }
-
-    targetTime(e) {
-        let clockTemplate = document.querySelector(".clock-modal")
-        let clockTemplate02 = document.querySelector(".clock-modal02")
-        if (e.target.classList.contains("clock-modal")) {
-            console.log(e.target);
-        }
-    }
 }
 
 class ErrorMsg {
@@ -602,13 +598,11 @@ class AddNoteInFolder {
 
     setNoteInLsNotes(IDR, tit, des) {
         let LSNotes = JSON.parse(localStorage.getItem('Notes'))
-        LSNotes.push(
-            {
-                ID: IDR,
-                noteText: tit,
-                description: des
-            }
-        )
+        LSNotes.push({
+            ID: IDR,
+            noteText: tit,
+            description: des
+        })
         LSNotes = JSON.stringify(LSNotes)
         localStorage.setItem('Notes', LSNotes)
     }
@@ -642,9 +636,10 @@ class Alarm {
     // paramet01 : user target full date (year/month/day)
     // paramet02 : user target time (hour, minute)
     // paramet03 : type of alarm (user target like daily, weekly, etc...)
-    constructor(date, time, alarmType, noteId) {
+    constructor(date, timeH, timeM, alarmType, noteId) {
         this.date = date;
-        this.time = time
+        this.timeH = timeH
+        this.timeM = timeM
         this.alarmType = alarmType
         this.noteId = noteId
     }
@@ -655,10 +650,14 @@ class Alarm {
         let year = parseInt(this.date.slice(0, 4))
         let month = parseInt(this.date.slice(5, 7))
         let day = parseInt(this.date.slice(8, 10))
+        let hour = parseInt(this.timeH)
+        let minute = parseInt(this.timeM)
         return {
             year: year,
             month: month,
             day: day,
+            hour: hour,
+            minute: minute
         }
     }
     // get current date - user target date = date we have
@@ -670,16 +669,27 @@ class Alarm {
         let currentMonth = new Date().getMonth() + 1
         // current day
         let currentDay = new Date().getDate()
+        // current hour
+        let currentHour = new Date().getHours()
+        // current minute
+        let currentMinute = new Date().getMinutes()
         // target year - current year = year for change it to seconds
         let targetYear = this.dateAlarm().year - currentYear
         // target month - current month = month for change it to seconds
         let targetMonth = this.dateAlarm().month - currentMonth
         // target day - current day = day for change it to seconds
         let targetDay = this.dateAlarm().day - currentDay
+        // target hour - current hour = hour for change it to seconds
+        let targetHour = this.dateAlarm().hour
+        // target minute - current minute = minute for change it to seconds
+        let targetMinute = this.dateAlarm().minute
+        console.log(targetHour, targetMinute, currentHour, currentMinute);
         return {
             targetYear: targetYear,
             targetMonth: targetMonth,
-            targetDay: targetDay
+            targetDay: targetDay,
+            targetHour: targetHour,
+            targetMinute: targetMinute,
         }
     }
     // change extra date to second
@@ -691,8 +701,16 @@ class Alarm {
         let monthToSecond = this.extraDate().targetMonth * 2628000
         //  1day = 86400 seconds
         let dayToSecond = this.extraDate().targetDay * 86400
+        // 1hours = 3600 seconds
+        let hourToSecond = this.extraDate().targetHour * 3600
+        // 1minutes = 60 seconds
+        let minuteToSecond = this.extraDate().targetMinute * 60
+
+
+
         // formula for set alarm
-        let userTargetDate = (yearToSecond) + (monthToSecond) + (dayToSecond)
+        let userTargetDate = (yearToSecond) + (monthToSecond) + (dayToSecond) + (hourToSecond) + (minuteToSecond)
+        console.log(userTargetDate);
         return userTargetDate
     }
     // pass targetTime to this function and after the user target time set alarm

@@ -358,7 +358,7 @@ function saveNote() {
                             // save note in local storage
                             saveInLs.addNoteInLS(title, noteId, des, date.textContent, targetTime)
                             // show alarm when user target date is arive
-                            let alarm = new Alarm(date.textContent, noteId)
+                            let alarm = new Alarm(date.textContent, timeH, timeM, null, noteId)
                             alarm.setAlarm()
                             // change style in new to do modal
                             cancelNote()
@@ -375,7 +375,7 @@ function saveNote() {
                         // save note in local storage
                         saveInLs.addNoteInLS(title, noteId, des, date.textContent, targetTime)
                         // show alarm when user target date is arive
-                        let alarm = new Alarm(date.textContent, noteId)
+                        let alarm = new Alarm(date.textContent, timeH, timeM, null, noteId)
                         alarm.setAlarm()
                         // change style in new to do modal
                         cancelNote()
