@@ -58,7 +58,6 @@ let days = document.querySelector(".days")
 // clock => hours
 let hours = document.querySelector(".hours")
 let minutes = document.querySelector(".minuts")
-
 let menuFolder = document.querySelector('#menuFolder')
 let deleteFolderBtn = document.querySelector('#deleteFolderBtn')
 let modalMenuFolder = document.querySelector('#modalMenuFolder')
@@ -68,7 +67,6 @@ let deleteFolder = document.querySelector('#deleteFolder')
 // hours and minutes division
 let selectedHour = document.querySelector(".clock>div>.selectedHour")
 let SelectMinutes = document.querySelector(".clock>div>.SelectMinutes")
-
 let PlacementOfNotesNoteLi = document.querySelector('#PlacementOfNotes .noteLi')
 let sectionValueNote = document.querySelector('#sectionValueNote')
 
@@ -593,35 +591,6 @@ function stopAlarm() {
     document.querySelector(".alarmtemplate").remove()
 }
 
-//     console.log(calendarModal);
-//     console.log("ok");
-
-//     calendarModal.addEventListener("click", () => {
-//         let lastDayy = new Calendar().lastDay
-//         console.log(lastDayy);
-//         days.forEach((i, index) => {
-//             for (let i = 0; i < array.length; i++) {
-//                 const element = array[i];
-
-//             }
-//             console.log(index);
-//         })
-//     })
-
-
-//     // calendarModal.style.display = "none"
-
-//     // let month = document.querySelector(".calendarHeader>div h3").textContent
-//     // let year = document.querySelector(".calendarHeader>div>p").textContent
-//     // year.toString()
-//     // console.log(yearSpan, monthSpan, daySpan);
-//     // let day = e.target.value
-//     // yearSpan.textContent = `${year}/`
-//     // monthSpan.textContent = `${month}/`
-//     // daySpan.textContent = day
-// }
-// ...........................
-
 // show notes in folder
 function showNoteInFolder(e) {
     // If you click on the folder
@@ -725,11 +694,14 @@ function deleteFolderInDomAndLs() {
     info = 0
 }
 
+// create place for information new not
 let y = localStorage.setItem('newNote', '[]')
 
 function showValueNote(IDR, tit, des) {
+    // get place newNote in LS
     let x = localStorage.getItem('newNote')
     x = JSON.parse(x)
+    // informations note focused
     let info = {
         IDR: IDR,
         tit: tit,
@@ -737,10 +709,8 @@ function showValueNote(IDR, tit, des) {
     }
     x.push(info)
     x = JSON.stringify(x)
-
+    // set informations note focused in LS
     localStorage.setItem('newNote', x)
-
-
-
+    // show section vallue note focused
     changeSectionInMain(3)
 }
