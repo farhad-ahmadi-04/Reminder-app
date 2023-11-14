@@ -65,6 +65,9 @@ let modalMenuFolder = document.querySelector('#modalMenuFolder')
 let bacModalDeleteFolder = document.querySelector('#bac-modalDeleteFolder')
 let btnCloseModalDeleteFolder = document.querySelector('#closeModalDeleteFolder')
 let deleteFolder = document.querySelector('#deleteFolder')
+// hours and minutes division
+let selectedHour = document.querySelector(".clock>div>.selectedHour")
+let SelectMinutes = document.querySelector(".clock>div>.SelectMinutes")
 
 
 
@@ -248,6 +251,9 @@ function closeModalNewNoteInFolder() {
 
 // defualt value for date division
 resulteDate.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}`
+// default time for clock division
+selectedHour.textContent = new Date().getHours()
+SelectMinutes.textContent = new Date().getMinutes()
 
 // status of date div 
 let isDivVisible = false;
@@ -262,6 +268,7 @@ function setDate() {
         date.style.display = "flex"
         // default date => current date
         resulteDate.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}`
+
         // change status of date div
         isDivVisible = true;
     } else {
@@ -333,13 +340,32 @@ function saveNote() {
         } else {
             // if user choose date
             if (calendarCount >= 1) {
-                // if user target date was today
-                if (`${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}` == resulteDate.textContent) {
-                    // if user selected previous time that now
-                    if (!checkTimeNewNode(document.querySelector('.selectedHour').textContent, document.querySelector('.SelectMinutes').textContent)) {
-                        let errorMessage = new ErrorMsg("don't choose pass time", newToDo)
-                        errorMessage.positionTemplate()
-                        // // if user did not selected previous time that now
+                // if user choose time
+                if (timeCount >= 3) {
+                    // if user target date was today
+                    if (`${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}` == resulteDate.textContent) {
+                        // if user selected previous time that now
+                        if (!checkTimeNewNode(document.querySelector('.selectedHour').textContent, document.querySelector('.SelectMinutes').textContent)) {
+                            let errorMessage = new ErrorMsg("don't choose pass time", newToDo)
+                            errorMessage.positionTemplate()
+                            // // if user did not selected previous time that now
+                        } else {
+                            // create obj from Note class
+                            let saveInDom = new Note(title, des, noteId, date.textContent, targetTime);
+                            const saveInLs = new NoteLs()
+                            // use obj for add note to DOM + LS
+                            saveInDom.addNewNote()
+                            // save note in local storage
+                            saveInLs.addNoteInLS(title, noteId, des, date.textContent, targetTime)
+                            // show alarm when user target date is arive
+                            let alarm = new Alarm(date.textContent, noteId)
+                            alarm.setAlarm()
+                            // change style in new to do modal
+                            cancelNote()
+
+                            timeCount = 0
+                        }
+                        // if user target date was future
                     } else {
                         // create obj from Note class
                         let saveInDom = new Note(title, des, noteId, date.textContent, targetTime);
@@ -353,24 +379,16 @@ function saveNote() {
                         alarm.setAlarm()
                         // change style in new to do modal
                         cancelNote()
+
+                        timeCount = 0
                     }
-                    // if user target date was future
                 } else {
-                    // create obj from Note class
-                    let saveInDom = new Note(title, des, noteId, date.textContent, targetTime);
-                    const saveInLs = new NoteLs()
-                    // use obj for add note to DOM + LS
-                    saveInDom.addNewNote()
-                    // save note in local storage
-                    saveInLs.addNoteInLS(title, noteId, des, date.textContent, targetTime)
-                    // show alarm when user target date is arive
-                    let alarm = new Alarm(date.textContent, noteId)
-                    alarm.setAlarm()
-                    // change style in new to do modal
-                    cancelNote()
+                    let errorMessage = new ErrorMsg("choose your target time", newToDo)
+                    errorMessage.positionTemplate()
+                    console.log(timeCount);
                 }
             } else {
-                let errorMessage = new ErrorMsg("choose your time", newToDo)
+                let errorMessage = new ErrorMsg("choose your target date", newToDo)
                 errorMessage.positionTemplate()
             }
         }
@@ -388,6 +406,9 @@ function cancelNote() {
     // data in resulteDate div (new to do modal)
     // let date = document.querySelector(".resulteDate")
     resulteDate.textContent = `${new Calendar().date.getFullYear()}/${new Calendar().date.getMonth() + 1}/${new Calendar().date.getDate()}`
+
+    selectedHour.textContent = new Date().getHours()
+    SelectMinutes.textContent = new Date().getMinutes()
     if (isDivVisible) {
         svgPosition(-38)
         dateButton.style = "background: rgba(255, 255, 255, 0.56);"
@@ -395,6 +416,7 @@ function cancelNote() {
         date.style.display = "none"
         isDivVisible = false
         calendarCount = 0
+        timeCount = 0
     }
 }
 // validation for add note
@@ -537,22 +559,27 @@ function setClock(e) {
         new Clock().template()
     }
 }
-
+// for count how many time user click on clock modal
+let timeCount = 0
+// adding time divition
 function addTime(e) {
-    let selectedHour = document.querySelector(".clock>div>.selectedHour")
-    let SelectMinutes = document.querySelector(".clock>div>.SelectMinutes")
+    // if parent target user click, its class name is hours
     if (e.target.parentElement == hours) {
+        // add hours to divition
         selectedHour.textContent = e.target.textContent
+        timeCount += 1
     }
+    // if parent target user click, its class name is minutes
     if (e.target.parentElement == minutes) {
+        // add minutes to divition
         SelectMinutes.textContent = e.target.textContent
+        timeCount += 2
     }
-    if (selectedHour.textContent == "--" || SelectMinutes == "--") {
-        console.log("block");
+    // if click count of user is less that 3 times
+    if (timeCount < 3) {
         document.querySelector(".clock-modal").style.display = "block";
         document.querySelector(".clock-modal02").style.display = "block"
     } else {
-        console.log("none");
         document.querySelector(".clock-modal").style.display = "none";
         document.querySelector(".clock-modal02").style.display = "none"
     }
