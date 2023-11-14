@@ -594,11 +594,12 @@ footer>div {
 
 /* The number of two div in the footer (bottom div) */
 .div-bottom-footer {
-    background-color: #777777;
+    border-radius: 15px;
+    background: #5D678B;
+    box-shadow: 0px 0px 10px 0px rgba(71, 71, 71, 0.51);
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 1vh;
 }
 
 /* Internal elements (the number of two divs in the footer (bottom div)) */
