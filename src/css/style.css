@@ -182,8 +182,6 @@ main {
     flex-direction: column;
     align-items: center;
     width: calc(100% - 100px);
-    /* height: calc(100% - 600px); */
-    background: rgba(102, 111, 135, 0.97);
     border-radius: 10px;
     margin: 0 auto;
     color: #fff;
@@ -191,6 +189,7 @@ main {
     top: 15%;
     left: 5%;
     z-index: 2;
+    background: linear-gradient(170deg, #697089 0.61%, #4E65B6 84.31%, #6787F8 99.62%);
 }
 
 .newToDo>div>h3 {
@@ -419,10 +418,11 @@ main {
     margin: 0 auto;
     width: 90%;
     height: 37vh;
-    background-color: rgb(165, 181, 187, 90%);
+    background: linear-gradient(170deg, #697089 0.61%, #4e65b6 84.31%, #6786f8 99.62%);
     border-radius: 2vh;
     position: fixed;
     top: 25vh;
+    transform: translate(6%, 13%);
 }
 
 #containerAddNewFolder h1 {
