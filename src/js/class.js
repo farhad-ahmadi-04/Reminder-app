@@ -100,7 +100,7 @@ class Note {
     // return : template of note
     noteTemplate(notwTitle, noteID, noteText, date, targetTime) {
         return `
-        <li data-id='${noteID}' class="noteLi">
+        <li data-id='${noteID}' class="noteLi" onclick="showValueNote('${noteID}','${notwTitle}','${noteText}')">
             <div class="noteHeader">
             <h3>${notwTitle}</h3>
             <div><img src="../../images/icons/Vector.svg" alt=""></div>
@@ -555,18 +555,20 @@ class AddNoteInFolder {
 
     template(IDR, tit, des) {
         return `
-        <li data-id='${IDR}' class="noteLi">
-            <div class="noteHeader">
-                <h3>${tit}</h3>
-                <div><img src="../../images/icons/Vector.svg" alt=""></div>
-            </div>
-            <div class="noteMain">
-                <p>${des}</p>
-            </div>
-            <div class="dateTime">
-                <div>2023/10/04</div>
-                <div>22:30</div>
-            </div>
+        <li data-id='${IDR}' class="noteLi" onclick="showValueNote('${IDR}','${tit}','${des}')">
+                <div class="noteHeader">
+                    <h3>${tit}</h3>
+                    <div>
+                        <img src="../../images/icons/Vector.svg" alt="">
+                    </div>
+                </div>
+                <div class="noteMain">
+                    <p>${des}</p>
+                </div>
+                <div class="dateTime">
+                    <div>2023/10/04</div>
+                    <div>22:30</div>
+                </div>
         </li>
         `
     }

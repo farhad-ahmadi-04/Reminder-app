@@ -562,7 +562,7 @@ main {
 #activeNow>hr {
     background-color: rgb(0, 0, 0);
     height: 0.1vh;
-    width: 80%;
+    width: 90%;
     margin: 2vh auto 1vh;
 }
 
@@ -652,6 +652,7 @@ footer input {
     margin: 0 auto;
     overflow: hidden;
     height: 5vh;
+    color: #EFEFEF;
 }
 
 
@@ -744,4 +745,12 @@ footer input {
 
 #modalDeleteFolder div span:nth-last-of-type(2) {
     background-color: #DC4B4B;
+}
+
+.noteLi * {
+    text-decoration: none !important;
+}
+
+.noteLi *:focus {
+    text-decoration: none !important;
 }

@@ -69,7 +69,8 @@ let deleteFolder = document.querySelector('#deleteFolder')
 let selectedHour = document.querySelector(".clock>div>.selectedHour")
 let SelectMinutes = document.querySelector(".clock>div>.SelectMinutes")
 
-
+let PlacementOfNotesNoteLi = document.querySelector('#PlacementOfNotes .noteLi')
+let sectionValueNote = document.querySelector('#sectionValueNote')
 
 
 
@@ -171,6 +172,7 @@ function changeSectionInMain(info) {
         case 3:
             // Delete all main sections
             removeSection()
+            window.location.href = "src/note/valueNote.html"
             break;
         case 4:
             // Delete all main sections
@@ -716,4 +718,23 @@ function deleteFolderInDomAndLs() {
     changeSectionInMain(2)
     document.querySelector('#liActiveNow').remove()
     info = 0
+}
+
+let y = localStorage.setItem('newNote', '[]')
+function showValueNote(IDR, tit, des) {
+    let x = localStorage.getItem('newNote')
+    x = JSON.parse(x)
+    let info = {
+        IDR: IDR,
+        tit: tit,
+        des: des
+    }
+    x.push(info)
+    x = JSON.stringify(x)
+
+    localStorage.setItem('newNote', x)
+
+
+
+    changeSectionInMain(3)
 }
