@@ -20,5 +20,5 @@
 
 ### Trello
 https://trello.com/invite/b/DmZuTBRM/ATTIc0323571a992ad4985b359891011020c670ABA50/reminder
-### Figma 
+### Figma (UI)
 https://www.figma.com/file/mrbds9YbjBboE1OSQGVBlG/remander?type=design&node-id=97%3A107&mode=design&t=kW2CSSNIxqMr5J5Q-1
