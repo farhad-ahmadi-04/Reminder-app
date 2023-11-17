@@ -17,3 +17,6 @@
 > 
   > Create a folder and put the desired note in that folder
 > 
+
+### Trello
+    - [Trello link](https://trello.com/invite/b/DmZuTBRM/ATTIc0323571a992ad4985b359891011020c670ABA50/reminder)
