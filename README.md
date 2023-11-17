@@ -19,4 +19,4 @@
 > 
 
 ### Trello
-     https://trello.com/invite/b/DmZuTBRM/ATTIc0323571a992ad4985b359891011020c670ABA50/reminder
+https://trello.com/invite/b/DmZuTBRM/ATTIc0323571a992ad4985b359891011020c670ABA50/reminder
